@@ -10,18 +10,20 @@ class AlunoView extends TPage{
             $this->html = new THtmlRenderer( 'app/templates/identificador-aluno.html' );
             
             // recebe nome de usuario do aluno. Deverá ser capturado das informações de sessão do usuário
-            $loginAluno = 'bruno';
+            $nomeAluno = 'Bruno César';
             
             // busca um aluno por nome de usuário na base de dados
             $controladorAluno = new ControladorAluno;
-            $aluno = $controladorAluno->buscarAlunoPorLogin( $loginAluno );
+            $aluno = $controladorAluno->buscarAlunoPorLogin( $nomeAluno );
             
             // lista para substituição dos valores na tela
             $listaSubstituicao = [];
             $listaSubstituicao['matricula'] = $aluno->matricula;
             $listaSubstituicao['nome'] = $aluno->nome;
-            $listaSubstituicao['login'] = $aluno->login;
-            $listaSubstituicao['curso'] = $aluno->matricula;
+            $listaSubstituicao['vinculo'] = $aluno->login;
+            $listaSubstituicao['status'] = $aluno->status;
+            $listaSubstituicao['email'] = $aluno->email;
+            $listaSubstituicao['dataIngresso'] = $aluno->dataIngresso;
             
             // habilita sessão html
             $this->html->enableSection( 'cardAluno', $listaSubstituicao );

@@ -2,15 +2,19 @@
 class ControladorAluno implements IGestorAluno{
     
     // inserir aluno na base de dados
-    public function inserirAluno( $aluno ){}
+    public function inserirAluno( $aluno ){
+        $alunoDAO = new AlunoDAO;
+        $alunoDAO->inserirAluno( $aluno );
+    }
     
     // Busca aluno por login
     public function buscarAlunoPorLogin( $loginAluno ){
+        echo '<pre>'; print_r( $loginAluno ); echo '</prep>';
         $alunoDAO = new AlunoDAO;
         
-        $aluno = alunoDAO( $loginAluno );
+        $aluno = $alunoDAO->buscarAlunoPorLogin( $loginAluno );
         
-        return $aluno;        
+        return $aluno;
     }
     
     // busca aluno pmatrícula na base de dados

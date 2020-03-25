@@ -1,8 +1,8 @@
 <?php
 class Aluno extends TRecord
 {
-    //const TABLENAME = 'tbarmacao';
-    const PRIMARYKEY= 'id';
+    const TABLENAME = 'usuario';
+    const PRIMARYKEY= 'matricula';
     const IDPOLICY =  'max'; // {max, serial} 
     
     /**
@@ -13,10 +13,11 @@ class Aluno extends TRecord
     {
         parent::__construct($id, $callObjectLoad);
         
-        parent::addAttribute('matricula');
+        //parent::addAttribute('matricula');
         parent::addAttribute('nome');
-        parent::addAttribute('login');
-        parent::addAttribute('curso');
-        
+        parent::addAttribute('vinculo');
+        parent::addAttribute('status');
+        parent::addAttribute('email');
+        parent::addAttribute('dataIngresso');        
     }
 }
