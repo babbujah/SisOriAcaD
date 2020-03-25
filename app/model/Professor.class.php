@@ -1,8 +1,8 @@
 <?php
 class Professor extends TRecord
 {
-    //const TABLENAME = 'tbarmacao';
-    const PRIMARYKEY= 'id';
+    const TABLENAME = 'professor';
+    const PRIMARYKEY= 'matricula';
     const IDPOLICY =  'max'; // {max, serial} 
     
     /**
@@ -12,7 +12,9 @@ class Professor extends TRecord
     public function __construct($id = NULL, $callObjectLoad = TRUE)
     {
         parent::__construct($id, $callObjectLoad);
-        //parent::addAttribute('codigo');
-        
+        parent::addAttribute('nome');
+        parent::addAttribute('status');
+        parent::addAttribute('email');
+        parent::addAttribute('dataIngresso');        
     }
 }

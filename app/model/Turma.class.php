@@ -1,8 +1,8 @@
 <?php
-class Curso extends TRecord
+class Turma extends TRecord
 {
-    const TABLENAME = 'curso';
-    const PRIMARYKEY= 'cod_curso';
+    const TABLENAME = 'turma';
+    const PRIMARYKEY= 'cod_turma';
     const IDPOLICY =  'max'; // {max, serial} 
     
     /**
@@ -12,7 +12,8 @@ class Curso extends TRecord
     public function __construct($id = NULL, $callObjectLoad = TRUE)
     {
         parent::__construct($id, $callObjectLoad);
-        parent::addAttribute('nivel');
-        parent::addAttribute('nome_curso');
+        parent::addAttribute('horario');
+        parent::addAttribute('ano_semestre');
+        parent::addAttribute('departamento');     
     }
 }

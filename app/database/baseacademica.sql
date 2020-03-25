@@ -69,7 +69,7 @@ CREATE TABLE co_requisito (
 */
 CREATE TABLE turma (
   cod_turma INTEGER PRIMARY KEY NOT NULL,
-  horário VARCHAR(200),
+  horario VARCHAR(200),
   ano_semestre VARCHAR(100) ,
   departamento VARCHAR(100)
 );
