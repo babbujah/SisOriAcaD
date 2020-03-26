@@ -37,4 +37,13 @@
             </menuitem>
         </menu>
     </menuitem>
+    <menuitem label='Sistema'>
+        <icon>fa:cog fa-fw</icon>
+        <menu>
+            <menuitem label='interface do Aluno'>
+                <icon>fa:cube fa-fw</icon>
+                <action>AlunoView</action>
+            </menuitem>
+        </menu>
+    </menuitem>
 </menu>
