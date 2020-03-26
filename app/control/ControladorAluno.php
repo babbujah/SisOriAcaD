@@ -9,7 +9,7 @@ class ControladorAluno implements IGestorAluno{
     
     // Busca aluno por login
     public function buscarAlunoPorLogin( $loginAluno ){
-        echo '<pre>'; print_r( $loginAluno ); echo '</prep>';
+        //echo '<pre>'; print_r( $loginAluno ); echo '</prep>';
         $alunoDAO = new AlunoDAO;
         
         $aluno = $alunoDAO->buscarAlunoPorLogin( $loginAluno );

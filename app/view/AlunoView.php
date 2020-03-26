@@ -28,12 +28,14 @@ class AlunoView extends TPage{
             // habilita sessão html
             $this->html->enableSection( 'cardAluno', $listaSubstituicao );
             
-            $vbox = new VBox;
-            $vbox->style - 'width:100%';
+            $vbox = new TVBox;
+            $vbox->style = 'width:100%';
             // adicionar opcao no menu para visualizar navegação do sistema
             //$vbox->add( new TXMLBreadCrumb( 'menu.xml', __CLASS__ ) );
             $vbox->add( $this->html );
             
+            //parent::add($vbox);
+            parent::add($this->html);
             
          }catch( Exception $e ){
              new TMessage( 'error', $e->getMessage() );

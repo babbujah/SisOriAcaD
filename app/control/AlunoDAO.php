@@ -17,13 +17,13 @@ class AlunoDAO extends TRecord{
     
     // busca aluno pelo nome de usuário na base de dados
     public function buscarAlunoPorLogin( $loginAluno ){
-        echo '<pre>'; print_r( $loginAluno ); echo '</prep>';
+        //echo '<pre>'; print_r( $loginAluno ); echo '</pre>';
         try{
             TTransaction::open( 'basedados' );
-            TTransaction::dump();
+            //TTransaction::dump();
             
             $alunos = Aluno::where( 'nome', '=', $loginAluno )->load();
-            echo '<pre>'; print_r( $alunos ); echo '</prep>';
+            //echo '<pre>'; print_r( $alunos ); echo '</pre>';
             
             TTransaction::close();
             
@@ -46,7 +46,7 @@ class AlunoDAO extends TRecord{
             TTransaction::open( 'basedados' );
             
             $alunos = Aluno::where( 'matricula', '=', $matricula );
-            echo '<pre>'; print_r( $alunos ); echo '</prep>';
+            //echo '<pre>'; print_r( $alunos ); echo '</prep>';
             
             TTransaction::close();
             
