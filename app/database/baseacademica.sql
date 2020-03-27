@@ -131,7 +131,7 @@ CREATE TABLE plano_notificacao (
   cod_notificacao INTEGER,
   CONSTRAINT PK_plano_notificacao PRIMARY KEY (cod_plano, cod_notificacao),
   FOREIGN KEY(cod_plano) REFERENCES plano(cod_plano),
-  FOREIGN KEY(cod_notificacao) REFERENCES codificacao(cod_notificacao)
+  FOREIGN KEY(cod_notificacao) REFERENCES notificacao(cod_notificacao)
 );
 
 CREATE TABLE turma_aluno (
@@ -148,6 +148,8 @@ CREATE TABLE turma (
   ano_semestre VARCHAR(200),
   horario TIME,
   departamento VARCHAR(50),
+  disciplina INTEGER,
+  FOREIGN KEY(disciplina) REFERENCES componente_curricular (cod_componente ), 
   FOREIGN KEY(matricula_professor) REFERENCES usuario(matricula),
   FOREIGN KEY(cod_turma_aluno) REFERENCES turma_aluno(PK_turma_aluno)
 );
