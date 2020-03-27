@@ -6,17 +6,18 @@ CREATE TABLE usuario (
   status VARCHAR(100) ,
   email VARCHAR(100),
   dataIngresso DATE,
-  tipo char(1)
+  tipo CHAR(1)
 );
 
 INSERT INTO usuario VALUES ('0001','Bruno César','Ativo','bruno@teste.com','2020-03-10','A');
+
 CREATE TABLE componente_curricular (
   cod_componente INTEGER PRIMARY KEY NOT NULL,
   departamento VARCHAR(50),
   nome VARCHAR(100) ,
   nivel VARCHAR(100),
   carga_horaria INTEGER,
-  tipo char(1)
+  tipo CHAR(1)
 );
 
 CREATE TABLE pre_requisito (
@@ -44,7 +45,7 @@ CREATE TABLE plano_curso (
 CREATE TABLE plano_curso_componente (
   cod_plano INTEGER,
   cod_componente INTEGER,
-  CONSTRAINT PK_co_requisito PRIMARY KEY (cod_plano, cod_componente),
+  CONSTRAINT PK_plano_componente PRIMARY KEY (cod_plano, cod_componente),
   FOREIGN KEY(cod_componente) REFERENCES componente_curricular(cod_componente), 
   FOREIGN KEY(cod_plano) REFERENCES plano_curso(cod_plano)
 );
@@ -99,17 +100,17 @@ CREATE TABLE grupo (
 
 CREATE TABLE reuniao (
   cod_reuniao INTEGER PRIMARY KEY NOT NULL,
-  matricula_aluno INTEGER,
+  matricula_professor INTEGER,
   cod_grupo INTEGER,
   assunto VARCHAR(200),
   horario TIME,
   mensagem VARCHAR(200),
   data DATE,
-  FOREIGN KEY(matricula_aluno) REFERENCES usuario(matricula),
+  FOREIGN KEY(matricula_professor) REFERENCES usuario(matricula),
   FOREIGN KEY(cod_grupo) REFERENCES grupo(PK_grupo)
 );
 
-CREATE TABLE notificao (
+CREATE TABLE notificacao (
   cod_notificacao INTEGER PRIMARY KEY NOT NULL,
   assunto VARCHAR(200),
   confirmacao CHAR,
@@ -122,7 +123,7 @@ CREATE TABLE reuniao_notificacao (
   cod_notificacao INTEGER,
   CONSTRAINT PK_reuniao_notificacao PRIMARY KEY (cod_reuniao, cod_notificacao),
   FOREIGN KEY(cod_reuniao) REFERENCES reuniao(cod_reuniao),
-  FOREIGN KEY(cod_notificacao) REFERENCES codificacao(cod_notificacao)
+  FOREIGN KEY(cod_notificacao) REFERENCES notificacao(cod_notificacao)
 );
 
 CREATE TABLE plano_notificacao (
