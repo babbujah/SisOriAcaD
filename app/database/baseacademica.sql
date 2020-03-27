@@ -9,6 +9,7 @@ CREATE TABLE usuario (
   tipo char(1)
 );
 
+INSERT INTO usuario VALUES ('0001','Bruno César','Ativo','bruno@teste.com','2020-03-10','A');
 CREATE TABLE componente_curricular (
   cod_componente INTEGER PRIMARY KEY NOT NULL,
   departamento VARCHAR(50),
