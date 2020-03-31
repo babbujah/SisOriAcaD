@@ -14,7 +14,7 @@ class AlunoView extends TPage{
             
             // busca um aluno por nome de usuário na base de dados
             $controladorAluno = new ControladorAluno;
-            $aluno = $controladorAluno->buscarAlunoPorLogin( $nomeAluno );
+            $aluno = $controladorAluno->buscarUsuarioPorNome( $nomeAluno );
             
             // lista para substituição dos valores na tela
             $listaSubstituicao = [];

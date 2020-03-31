@@ -1,33 +1,35 @@
 <?php
-class AlunoDAO extends TRecord{
+class UsuarioDAO extends TRecord{
 
-    // inserir aluno na base de dados
-    public function inserirAluno( $aluno ){
+    // inserir um objeto do tipo Usuario na base de dados
+    public function inserirUsuario( $usuario, $tipoUsuario ){
         try{
             TTransaction::open( 'basedados' );
           
-            $aluno->store();
+            $usuario->store();
             
-            new TMessage( 'info', 'Aluno inserido com sucesso.' );
+            new TMessage( 'info', $tipoUsuario.' inserido com sucesso.' );
             
         }catch( Exception $e ){
             new TMessage( 'error', $e->getMessage() );
+            
         }
     }
     
-    // busca aluno pelo nome de usuário na base de dados
-    public function buscarAlunoPorNome( $nomeAluno ){
+    // busca usuário pelo nome de usuário na base de dados
+    // obsoleta
+    public function buscarUsuarioPorNome( $nomeUsuario ){
         //echo '<pre>'; print_r( $loginAluno ); echo '</pre>';
         try{
             TTransaction::open( 'basedados' );
             //TTransaction::dump();
             
-            $alunos = Aluno::where( 'nome', '=', $nomeAluno )->load();
+            $usuarios = Aluno::where( 'nome', '=', $nomeUsuario )->load();
             //echo '<pre>'; print_r( $alunos ); echo '</pre>';
             
             TTransaction::close();
             
-            return $alunos[0];
+            return $usuarios[0];
             
             /*
             $descricao = 'Joystick XBox 360';
@@ -37,15 +39,16 @@ class AlunoDAO extends TRecord{
             
         }catch( Exception $e ){
             new TMessage( 'error', $e->getMessage() );
+            
         }
     }
     
-    // busca aluno pmatrícula na base de dados
-    public function buscarAlunoPorMatricula( $matriculaAluno ){
+    // busca usuário por matrícula na base de dados
+    public function buscarAlunoPorMatricula( $matriculaUsuario ){
         try{
             TTransaction::open( 'basedados' );
             
-            $alunos = Aluno::where( 'matricula', '=', $matriculaAluno );
+            $alunos = Aluno::where( 'matricula', '=', $matriculaUsuario );
             //echo '<pre>'; print_r( $alunos ); echo '</prep>';
             
             TTransaction::close();
@@ -54,6 +57,7 @@ class AlunoDAO extends TRecord{
             
         }catch( Exception $e ){
             new TMessage( 'error', $e->getMessage() );
+            
         }
     }
 }

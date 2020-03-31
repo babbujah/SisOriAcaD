@@ -1,22 +1,35 @@
 <?php
-class ControladorAluno implements IGestorAluno{
+class ControladorAluno extends ControladorUsuario{
     
     // inserir aluno na base de dados
     public function inserirAluno( $aluno ){
-        $alunoDAO = new AlunoDAO;
-        $alunoDAO->inserirAluno( $aluno );
+        ControladorUsuario::inserirUsuario( $aluno, 'Aluno' );
     }
     
-    // Busca aluno por login
-    public function buscarAlunoPorLogin( $loginAluno ){
-        //echo '<pre>'; print_r( $loginAluno ); echo '</prep>';
-        $alunoDAO = new AlunoDAO;
+    /*
+    // Busca aluno por nome
+    public function buscarUsuarioPorNome( $nomeAluno ){
+        //echo '<pre>'; print_r( $nomeAluno ); echo '</prep>';
         
-        $aluno = $alunoDAO->buscarAlunoPorLogin( $loginAluno );
+        $usuarioDAO = new UsuarioDAO;
+        
+        $aluno = $usuarioDAO->buscarUsuarioPorNome( $nomeAluno );
         
         return $aluno;
     }
     
-    // busca aluno pmatrícula na base de dados
-    public function buscarAlunoPorMatricula( $aluno ){}  
+    // busca aluno por matrícula na base de dados
+    public function buscarUsuarioPorMatricula( $matriculaAluno ){
+    
+        $listaCaracterMatriculaTemp = str_split( $matriculaAluno );
+        $primeiroCaracter = chr( $listaCaracterMatriculaTemp[0] );
+        echo $primeiroCaracter;
+        
+        $usuarioDAO = new UsuarioDAO;
+        
+        $aluno = $usuarioDAO->buscarUsurioPorMatricula( $matriculaAluno );
+        
+        return $aluno;
+    }
+    */  
 }
