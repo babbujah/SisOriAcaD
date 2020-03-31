@@ -19,11 +19,11 @@ class AlunoView extends TPage{
             // lista para substituição dos valores na tela
             $listaSubstituicao = [];
             $listaSubstituicao['matricula'] = $aluno->matricula;
-            $listaSubstituicao['nome'] = $aluno->nome;
-            $listaSubstituicao['vinculo'] = $aluno->login;
+            $listaSubstituicao['nome'] = $aluno->nome;            
             $listaSubstituicao['status'] = $aluno->status;
             $listaSubstituicao['email'] = $aluno->email;
             $listaSubstituicao['dataIngresso'] = $aluno->dataIngresso;
+            $listaSubstituicao['vinculo'] = $aluno->vinculo;
             
             // habilita sessão html
             $this->html->enableSection( 'cardAluno', $listaSubstituicao );
