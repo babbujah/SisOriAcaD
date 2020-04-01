@@ -1,4 +1,3 @@
-﻿
 CREATE TABLE usuario (
   matricula INTEGER PRIMARY KEY NOT NULL,
   nome VARCHAR(200),
