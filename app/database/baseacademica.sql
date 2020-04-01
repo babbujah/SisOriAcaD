@@ -91,12 +91,12 @@ CREATE TABLE curso_componente (
 );
 
 CREATE TABLE historico_escolar (
-  matricula_aluno varchar(11),
+  id INTEGER PRIMARY KEY NOT NULL, 
+  matricula_aluno INTEGER,
   cod_componente VARCHAR(20),
   nota FLOAT,
   situacao VARCHAR(50),
   ano FLOAT,
-  CONSTRAINT PK_historico_escolar PRIMARY KEY (matricula_aluno,cod_componente,ano),
   FOREIGN KEY(matricula_aluno) REFERENCES usuario(matricula), 
   FOREIGN KEY(cod_componente) REFERENCES componente_curricular(cod_componente)
 );
