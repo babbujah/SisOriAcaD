@@ -1,15 +1,24 @@
-﻿/*BEGIN TRANSACTION;*/
-
+﻿
 CREATE TABLE usuario (
   matricula INTEGER PRIMARY KEY NOT NULL,
   nome VARCHAR(200),
-  status VARCHAR(100) ,
+  vinculo CHAR(1),
+  status CHAR(1),
   email VARCHAR(100),
-  dataIngresso DATE,
-  tipo CHAR(1)
+  dataIngresso DATE
 );
 
-INSERT INTO usuario VALUES ('0001','Bruno César','Ativo','bruno@teste.com','2020-03-10','A');
+INSERT INTO usuario VALUES(1,'Jair Fonseca','P','A','jairfonseca@teste.com', '10/01/2000');
+INSERT INTO usuario VALUES(2,'Paulo Guedes','A', 'A' , 'pauloguedes@teste.com', '05/01/1980');
+INSERT INTO usuario VALUES(3,'Jorge Lodi', 'A' ,'I', 'jorgelodi@teste.com','20/04/1995');
+INSERT INTO usuario VALUES(4,'Samuel Lopes','P','A' , 'samuellopes@teste.com','08/04/1985');
+INSERT INTO usuario VALUES(5,'Bruno César','A','A', 'brunocesar@teste.com','02/02/2010');
+INSERT INTO usuario VALUES(6,'Willian Talles','A','A', 'williantalles@teste.com','02/02/2010');
+INSERT INTO usuario VALUES(7,'Ágatha Gabrielly','P','A', 'agathagabrielly@teste.com','02/02/2010');
+INSERT INTO usuario VALUES(8,'Adriel Cauã','A','I' , 'adrielcaua@teste.com','02/02/2000');
+INSERT INTO usuario VALUES(9,'Andressa Mykahella','A','A' , 'andressamykahella@teste.com','02/02/2000');
+INSERT INTO usuario VALUES(10,'João Pedro','A','A', 'joaopedro@teste.com','03/08/2015');
+
 
 CREATE TABLE componente_curricular (
   cod_componente INTEGER PRIMARY KEY NOT NULL,
@@ -83,10 +92,12 @@ CREATE TABLE curso_componente (
 );
 
 CREATE TABLE historico_escolar (
-  matricula_aluno INTEGER,
-  cod_componente INTEGER,
+  matricula_aluno varchar(11),
+  cod_componente VARCHAR(20),
   nota FLOAT,
-  CONSTRAINT PK_historico_escolar PRIMARY KEY (matricula_aluno,cod_componente),
+  situacao VARCHAR(50),
+  ano FLOAT,
+  CONSTRAINT PK_historico_escolar PRIMARY KEY (matricula_aluno,cod_componente,ano),
   FOREIGN KEY(matricula_aluno) REFERENCES usuario(matricula), 
   FOREIGN KEY(cod_componente) REFERENCES componente_curricular(cod_componente)
 );
