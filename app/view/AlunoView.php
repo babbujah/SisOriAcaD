@@ -31,8 +31,8 @@ class AlunoView extends TPage{
             $listaSubstituicao['dataIngresso'] = $aluno->dataIngresso;
             $listaSubstituicao['vinculo'] = $aluno->vinculo;
             
-            $listaSubstituicao['matricula_hist'] = $historico->matricula_aluno;
-            $listaSubstituicao['disciplina'] = $historico->cod_componente;
+            $listaSubstituicao['matricula_aluno'] = $historico->matricula_aluno;
+            $listaSubstituicao['cod_componente'] = $historico->cod_componente;
             $listaSubstituicao['nota'] = $historico->nota;
             $listaSubstituicao['situacao'] = $historico->situacao;
             $listaSubstituicao['ano'] = $historico->ano;
