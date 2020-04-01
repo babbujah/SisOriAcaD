@@ -12,7 +12,7 @@ class AlunoView extends TPage{
             // recebe nome de usuario do aluno. Deverá ser capturado das informações de sessão do usuário
             $nomeAluno = 'Bruno César';
             //recebe a matricula do aluno
-            $matriculaTeste = '2012924527';
+            $matriculaTeste = 20170001198;
             
             // busca um aluno por nome de usuário na base de dados
             $controladorAluno = new ControladorAluno;
