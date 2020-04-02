@@ -10,6 +10,8 @@ class UsuarioDAO extends TRecord{
             
             new TMessage( 'info', $tipoUsuario.' inserido com sucesso.' );
             
+            TTransaction::close();
+            
         }catch( Exception $e ){
             new TMessage( 'error', $e->getMessage() );
             
