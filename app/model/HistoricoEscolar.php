@@ -3,7 +3,7 @@ class HistoricoEscolar extends TRecord
 {
     const TABLENAME = 'historico_escolar';
     const PRIMARYKEY= 'id';
-    const IDPOLICY =  'serial'; // {max, serial} 
+    const IDPOLICY =  'max'; // {max, serial}
     
     /**
      * Constructor method
@@ -13,11 +13,11 @@ class HistoricoEscolar extends TRecord
     {
         parent::__construct($id, $callObjectLoad);
         
-        //parent::addAttribute('matricula');
         parent::addAttribute('matricula_aluno');
-        parent::addAttribute('cod_componente');                
+        parent::addAttribute('cod_componente');              
         parent::addAttribute('nota');
         parent::addAttribute('situacao');
-        parent::addAttribute('ano');        
+        parent::addAttribute('ano');
+        
     }
 }

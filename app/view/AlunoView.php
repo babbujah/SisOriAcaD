@@ -12,15 +12,27 @@ class AlunoView extends TPage{
             // recebe nome de usuario do aluno. Deverá ser capturado das informações de sessão do usuário
             $nomeAluno = 'Bruno César';
             //recebe a matricula do aluno
-            $matriculaTeste = '2012924527';
+            $matriculaTeste = '5';
             
             // busca um aluno por nome de usuário na base de dados
             $controladorAluno = new ControladorAluno;
             $aluno = $controladorAluno->buscarUsuarioPorNome( $nomeAluno );
             
             //busca por um historico na base de dados
-            $controladorHistorico = new ControladorHistorico;
-            $historico = $controladorHistorico->buscarHistoricoPorMatricula($matriculaTeste);
+            $controladorHistorico = new ControladorHistoricoEscolar;
+            
+            $historicoAluno = $controladorHistorico->buscarHistoricoAluno( $matriculaTeste );
+            $aluno->setHistoricoEscolarAluno( $historicoAluno );
+            
+            $historicoTeste = $aluno->getHistoricoEscolarAluno(); 
+            foreach( $historicoTeste as $disciplina ){
+                echo 'Disciplina: ' . $disciplina->cod_componente.' | ';
+                echo 'Nota: ' . $disciplina->nota.' | ';
+                echo 'Situação: ' . $disciplina->situacao.' | ';
+                echo 'Ano: ' . $disciplina->ano.'<br>';
+                
+            }
+            
             
             // lista para substituição dos valores na tela
             $listaSubstituicao = [];
@@ -30,13 +42,13 @@ class AlunoView extends TPage{
             $listaSubstituicao['email'] = $aluno->email;
             $listaSubstituicao['dataIngresso'] = $aluno->dataIngresso;
             $listaSubstituicao['vinculo'] = $aluno->vinculo;
-            
+            /*
             $listaSubstituicao['matricula_aluno'] = $historico->matricula_aluno;
             $listaSubstituicao['cod_componente'] = $historico->cod_componente;
             $listaSubstituicao['nota'] = $historico->nota;
             $listaSubstituicao['situacao'] = $historico->situacao;
             $listaSubstituicao['ano'] = $historico->ano;
-            
+            */
             // habilita sessão html
             $this->html->enableSection( 'cardAluno', $listaSubstituicao );
             

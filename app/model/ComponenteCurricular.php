@@ -3,7 +3,7 @@ class Componente_curricular extends TRecord
 {
     const TABLENAME = 'componente_curricular';
     const PRIMARYKEY= 'cod_disciplina';
-    const IDPOLICY =  'serial'; // {max, serial} 
+    const IDPOLICY =  'max'; // {max, serial} 
     
     /**
      * Constructor method
