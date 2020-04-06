@@ -8,11 +8,24 @@
                 </div>
             </div>
             <div class="card-body panel-body" style="text-align:center">
-                <p>
-                <b>Matrícula: </b> {{matricula}} <br>
-                <b>Nome: </b> {{nome}} <br>
-                <b>Vínculo: </b> {{vinculo}} <br>
-                </p>
+                <table class="table table-striped">  
+                    <thead class="thead-dark">
+                        <th>#</th>
+                        <th>#</th>
+                    </thead>                      
+                    <tr>
+                        <th>Matrícula</th>
+                        <td style="background-color: unset">{{matricula}} </td>
+                    </tr>
+                    <tr>
+                        <th>Nome</th>
+                        <td style="background-color: unset">{{nome}} </td>
+                    </tr>
+                    <tr>
+                        <th>Vínculo</th>
+                        <td style="background-color: unset">{{vinculo}} </td>
+                    </tr >
+                </table>
             </div>
             <!-- <div class="card-footer panel-footer" style="text-align:center">
                 <a href="https://www.adianti.com.br/framework-quickstart" target="newwindow" class="btn btn-default"> <i class="far fa-clock blue" aria-hidden="true"></i> Abrir guia rápido </a>
@@ -27,11 +40,8 @@
                    <div style="width: 100%"><i class="far fa-folder gray" aria-hidden="true"></i> Índices Acadêmicos</div>
                 </div>
             </div>
-            <div class="card-body panel-body" style="text-align:center">
-                <p><a href="" target="">Indice 1</a></p> 
-                <p><a href="" target="">Indice 2</a></p>
-                <p><a href="" target="">Indice 3</a></p> 
-                <p><a href="" target="">Indice 4</a></p>
+            <div class="card-body panel-body" id="bloco-indice" style="text-align:center">
+                
             </div>
             <div class="card-footer panel-footer" style="text-align:center">
                 <a href="https://www.adianti.com.br/framework-structure" target="newwindow" class="btn btn-default"> <i class="far fa-folder blue" aria-hidden="true"></i> Ver estrutura de diretórios </a>
