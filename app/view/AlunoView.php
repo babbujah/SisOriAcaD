@@ -2,6 +2,7 @@
 class AlunoView extends TPage{
 
     private $html;
+    private $matriculaAluno;
     
     public function __construct(){
         parent::__construct();
@@ -10,30 +11,11 @@ class AlunoView extends TPage{
             $this->html = new THtmlRenderer( 'app/templates/identificador-aluno/index.html' );
             
             // recebe nome de usuario do aluno. Deverá ser capturado das informações de sessão do usuário
-            $nomeAluno = 'Bruno César';
-            //recebe a matricula do aluno
-            $matriculaTeste = '5';
+            $nomeAluno = 'Bruno César';            
             
             // busca um aluno por nome de usuário na base de dados
             $controladorAluno = new ControladorAluno;
             $aluno = $controladorAluno->buscarUsuarioPorNome( $nomeAluno );
-            
-            //busca por um historico na base de dados
-            $controladorHistorico = new ControladorHistoricoEscolar;
-            
-            $historicoAluno = $controladorHistorico->buscarHistoricoAluno( $matriculaTeste );
-            $aluno->setHistoricoEscolarAluno( $historicoAluno );
-            
-            $historicoTeste = $aluno->getHistoricoEscolarAluno(); 
-            /*
-            foreach( $historicoTeste as $disciplina ){
-                echo 'Disciplina: ' . $disciplina->cod_componente.' | ';
-                echo 'Nota: ' . $disciplina->nota.' | ';
-                echo 'Situação: ' . $disciplina->situacao.' | ';
-                echo 'Ano: ' . $disciplina->ano.'<br>';
-                
-            }
-            */
             
             // lista para substituição dos valores na tela
             $listaSubstituicao = [];
@@ -63,6 +45,7 @@ class AlunoView extends TPage{
             //parent::add($this->html);
             
             self::renderBloco(['bloco' => 'list']);
+            //self::renderBloco(['bloco' => 'list']);
             
          }catch( Exception $e ){
              new TMessage( 'error', $e->getMessage() );
@@ -108,6 +91,32 @@ class AlunoView extends TPage{
     
     private static function renderIndice( $indice ){        
        $html = new HtmlRendererConstructor('app/templates/identificador-aluno/indice.html');
+       $html->enableSection('indice',[ 'key' => $indice ] );
+       $html->loadHtmlScreen('bloco-indice');   
+    }
+    
+    private static function renderHistorico( $indice ){
+        //recebe a matricula do aluno
+       $matriculaAluno = '5';
+       
+       //busca por um historico na base de dados
+        $controladorHistorico = new ControladorHistoricoEscolar;
+        
+        $historicoAluno = $controladorHistorico->buscarHistoricoAluno( $matriculaTeste );
+        $aluno->setHistoricoEscolarAluno( $historicoAluno );
+        
+        $historicoTeste = $aluno->getHistoricoEscolarAluno(); 
+        /*
+        foreach( $historicoTeste as $disciplina ){
+            echo 'Disciplina: ' . $disciplina->cod_componente.' | ';
+            echo 'Nota: ' . $disciplina->nota.' | ';
+            echo 'Situação: ' . $disciplina->situacao.' | ';
+            echo 'Ano: ' . $disciplina->ano.'<br>';
+            
+        }
+        */
+    
+       $html = new HtmlRendererConstructor('app/templates/identificador-aluno/historico.html');
        $html->enableSection('indice',[ 'key' => $indice ] );
        $html->loadHtmlScreen('bloco-indice');   
     }
