@@ -4,7 +4,8 @@ class ProfessorDAO extends TRecord{
     // inserir professor na base de dados
     public function inserirProfessor( $professor ){
         try{
-            TTransaction::open( 'basedados' );
+            TTransaction::open( 'minhabasedados' );
+            //TTransaction::open( 'basedados' );
           
             $professor->store();
             

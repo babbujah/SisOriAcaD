@@ -1,7 +1,5 @@
-BEGIN TRANSACTION;
-
 CREATE TABLE usuario (
-  matricula INTEGER PRIMARY KEY NOT NULL,
+  matricula BIGINT PRIMARY KEY NOT NULL,
   nome VARCHAR(200),
   vinculo CHAR(1),
   status CHAR(1),
@@ -20,56 +18,45 @@ INSERT INTO usuario VALUES(8,'Adriel Cauã','A','I' , 'adrielcaua@teste.com','02
 INSERT INTO usuario VALUES(9,'Andressa Mykahella','A','A' , 'andressamykahella@teste.com','02/02/2000');
 INSERT INTO usuario VALUES(10,'João Pedro','A','A', 'joaopedro@teste.com','03/08/2015');
 
-CREATE TABLE nivel (
-  id INTEGER PRIMARY KEY NOT NULL,
-  nome_nivel VARCHAR(100)
+
+CREATE TABLE componente_curricular (
+  cod_componente VARCHAR(20) PRIMARY KEY NOT NULL,
+  departamento VARCHAR(50),
+  nome VARCHAR(100) ,
+  nivel VARCHAR(100),
+  carga_horaria INTEGER,
+  tipo CHAR(1)
 );
-
-INSERT INTO nivel VALUES(1,'Técnico');
-INSERT INTO nivel VALUES(2,'Médio');
-INSERT INTO nivel VALUES(3,'Graduação');
-INSERT INTO nivel VALUES(4,'Mestrado');	
-INSERT INTO nivel VALUES(5,'Doutorado');
-
-CREATE TABLE departamento (
-  id INTEGER PRIMARY KEY NOT NULL,
-  nome_departamento VARCHAR(100)
-);
-
+/*
 INSERT INTO departamento VALUES(1,'ECT');
 INSERT INTO departamento VALUES(2,'IMD');
 INSERT INTO departamento VALUES(3,'DIMAP');
 
-CREATE TABLE componente_curricular (
-  cod_disciplina VARCHAR(100) PRIMARY KEY NOT NULL,
-  nome_disciplina VARCHAR(200),
-  nivel_id INTEGER,
-  departamento_id INTEGER,  
-  carga_horaria INTEGER,
-  tipo CHAR(1),
-  FOREIGN KEY(nivel_id) REFERENCES nivel(id), 
-  FOREIGN KEY(departamento_id) REFERENCES departamento(id)
-);
-
-INSERT INTO componente_curricular VALUES('ECT1201','ALGEBRA LINEAR',3,1,60,'O');
-INSERT INTO componente_curricular VALUES('ECT1543','BANCO DE DADOS',3,1,90,'O');
-INSERT INTO componente_curricular VALUES('ECT1203','LINGUAGEM DE PROGRAMAÇÃO',3,1,60,'O');
-INSERT INTO componente_curricular VALUES('ECT1402','MECÂNICA DOS SÓLIDOS',3,1,60,'E');
-INSERT INTO componente_curricular VALUES('IMD1010','RESOLUÇÃO DE PROBLEMAS MATEMÁTICOS PARA TI',3,2,180,'O');
-INSERT INTO componente_curricular VALUES('IMD1011','LÓGICA DE PROGRAMAÇÃO 1',3,2, 90, 'O');
-INSERT INTO componente_curricular VALUES('IMD1012','CÁLCULO 1',3,2, 90, 'O');
-INSERT INTO componente_curricular VALUES('IMD1013','INTRODUÇÃO AS TÉCNICAS DE PROGRAMAÇÃO',3,2, 60, 'O');
-INSERT INTO componente_curricular VALUES('IMD1014','ANÁLISE E PROJETO ORIENTADO À OBJETO',3,3, 60, 'E');
-INSERT INTO componente_curricular VALUES('IMD1015','SEGURANÇA DE REDES',3,2, 60, 'E');
-INSERT INTO componente_curricular VALUES('IMD1016','PRÁTICA DE TÉCNICAS DE PROGRAMAÇÃO',3,2, 60, 'O');
-
+INSERT INTO nivel VALUES(1,'Técnico');
+INSERT INTO nivel VALUES(2,'Médio');
+INSERT INTO nivel VALUES(3,'Graduação');
+INSERT INTO nivel VALUES(4,'Mestrado'); 
+INSERT INTO nivel VALUES(5,'Doutorado');
+*/
+INSERT INTO componente_curricular VALUES('ECT1201','ECT','ALGEBRA LINEAR','Graduação',60,'O');
+INSERT INTO componente_curricular VALUES('ECT1543','ECT','BANCO DE DADOS','Graduação',90,'O');
+INSERT INTO componente_curricular VALUES('ECT1203','ECT','LINGUAGEM DE PROGRAMAÇÃO','Graduação',60,'O');
+INSERT INTO componente_curricular VALUES('ECT1402','ECT','MECÂNICA DOS SÓLIDOS','Graduação',60,'E');
+INSERT INTO componente_curricular VALUES('IMD1010','IMD','RESOLUÇÃO DE PROBLEMAS MATEMÁTICOS PARA TI','Graduação',180,'O');
+INSERT INTO componente_curricular VALUES('IMD1011','IMD','LÓGICA DE PROGRAMAÇÃO 1','Graduação', 90, 'O');
+INSERT INTO componente_curricular VALUES('IMD1012','IMD','CÁLCULO 1','Graduação', 90, 'O');
+INSERT INTO componente_curricular VALUES('IMD1013','IMD','INTRODUÇÃO AS TÉCNICAS DE PROGRAMAÇÃO','Graduação',60,'O');
+INSERT INTO componente_curricular VALUES('IMD1014','IMD','ANÁLISE E PROJETO ORIENTADO À OBJETO','Graduação',60,'E');
+INSERT INTO componente_curricular VALUES('IMD1015','IMD','SEGURANÇA DE REDES','Graduação', 60, 'E');
+INSERT INTO componente_curricular VALUES('IMD1016','IMD','PRÁTICA DE TÉCNICAS DE PROGRAMAÇÃO','Graduação', 60, 'O');
 
 CREATE TABLE pre_requisito (
   id INTEGER PRIMARY KEY NOT NULL,
-  cod_disciplina VARCHAR(100) NOT NULL, 
-  pre_requisito VARCHAR(100) NOT NULL,
-  FOREIGN KEY(cod_disciplina) REFERENCES componente_curricular(cod_disciplina), 
-  FOREIGN KEY(pre_requisito) REFERENCES componente_curricular(cod_disciplina)
+  cod_componente VARCHAR(20),
+  pre_requisito VARCHAR(20),
+  /*CONSTRAINT PK_pre_requisito PRIMARY KEY (cod_componente, pre_requisito),*/
+  FOREIGN KEY(cod_componente) REFERENCES componente_curricular(cod_componente), 
+  FOREIGN KEY(pre_requisito) REFERENCES componente_curricular(cod_componente)
 );
 
 /*INSERT INTO pre_requisito VALUES(1,1,NULL);*/
@@ -79,13 +66,157 @@ INSERT INTO pre_requisito VALUES(3,'IMD1011','IMD1016');
 /*INSERT INTO pre_requisito VALUES(5,5,NULL);
 INSERT INTO pre_requisito VALUES(6,6,NULL);*/
 INSERT INTO pre_requisito VALUES(4,'IMD1013','IMD1010');
-INSERT INTO pre_requisito VALUES(7,'IMD1016','IMD1010');
-/*
+INSERT INTO pre_requisito VALUES(5,'IMD1016','IMD1010');
+
 CREATE TABLE co_requisito (
-  id INTEGER PRIMARY KEY NOT NULL,
-  componente_curricular_id INTEGER NOT NULL, 
-  co_requisito_id INTEGER NOT NULL,
-  FOREIGN KEY(componente_curricular_id) REFERENCES componente_curricular(id), 
-  FOREIGN KEY(co_requisito_id) REFERENCES componente_curricular(id)
+  cod_componente VARCHAR(20),
+  co_requisito VARCHAR(20),
+  CONSTRAINT PK_co_requisito PRIMARY KEY (cod_componente, co_requisito),
+  FOREIGN KEY(cod_componente) REFERENCES componente_curricular(cod_componente), 
+  FOREIGN KEY(co_requisito) REFERENCES componente_curricular(cod_componente)
 );
+
+CREATE TABLE plano_curso (
+  cod_plano INTEGER PRIMARY KEY NOT NULL,
+  matricula_aluno BIGINT, 
+  FOREIGN KEY(matricula_aluno) REFERENCES usuario(matricula)
+);
+
+CREATE TABLE plano_curso_componente (
+  cod_plano INTEGER,
+  cod_componente VARCHAR(20),
+  CONSTRAINT PK_plano_componente PRIMARY KEY (cod_plano, cod_componente),
+  FOREIGN KEY(cod_componente) REFERENCES componente_curricular(cod_componente), 
+  FOREIGN KEY(cod_plano) REFERENCES plano_curso(cod_plano)
+);
+
+CREATE TABLE orientacao (
+  cod_orientacao INTEGER PRIMARY KEY NOT NULL,
+  cod_plano INTEGER,
+  matricula_professor BIGINT,
+  data DATE,
+  texto VARCHAR(200),
+  FOREIGN KEY(matricula_professor) REFERENCES usuario(matricula), 
+  FOREIGN KEY(cod_plano) REFERENCES plano_curso(cod_plano)
+);
+
+CREATE TABLE curso (
+  cod_curso INTEGER PRIMARY KEY NOT NULL,
+  nome_curso VARCHAR(200),
+  nivel VARCHAR(50)
+);
+
+CREATE TABLE aluno (
+  matricula_aluno BIGINT,
+  cod_curso INTEGER,
+  CONSTRAINT PK_aluno PRIMARY KEY (matricula_aluno,cod_curso),
+  FOREIGN KEY(matricula_aluno) REFERENCES usuario(matricula), 
+  FOREIGN KEY(cod_curso) REFERENCES curso(cod_curso)
+);
+
+CREATE TABLE curso_componente (
+  cod_curso INTEGER,
+  cod_componente VARCHAR(20),
+  CONSTRAINT PK_curso_componente PRIMARY KEY (cod_curso,cod_componente),
+  FOREIGN KEY(cod_curso) REFERENCES curso(cod_curso), 
+  FOREIGN KEY(cod_componente) REFERENCES componente_curricular(cod_componente)
+);
+
+CREATE TABLE historico_escolar (
+  id INTEGER PRIMARY KEY AUTOINCREMENT, 
+  matricula_aluno BIGINT,
+  cod_componente VARCHAR(20),
+  nota FLOAT,
+  situacao VARCHAR(50),
+  ano FLOAT,
+  FOREIGN KEY(matricula_aluno) REFERENCES usuario(matricula), 
+  FOREIGN KEY(cod_componente) REFERENCES componente_curricular(cod_componente)
+);
+/*
+INSERT INTO componente_curricular VALUES('ECT1201','IMD','ALGEBRA LINEAR','Graduação',60,'O');
+INSERT INTO componente_curricular VALUES('ECT1543','IMD','BANCO DE DADOS','Graduação',90,'O');
+INSERT INTO componente_curricular VALUES('ECT1203','IMD','LINGUAGEM DE PROGRAMAÇÃO','Graduação',60,'O');
+INSERT INTO componente_curricular VALUES('ECT1402','ECT','MECÂNICA DOS SÓLIDOS','Graduação',60,'E');
+INSERT INTO componente_curricular VALUES('IMD1010','IMD','RESOLUÇÃO DE PROBLEMAS MATEMÁTICOS PARA TI','Graduação',180,'O');
+INSERT INTO componente_curricular VALUES('IMD1011','IMD','LÓGICA DE PROGRAMAÇÃO 1','Graduação', 90, 'O');
+INSERT INTO componente_curricular VALUES('IMD1012','IMD','CÁLCULO 1','Graduação', 90, 'O');
+INSERT INTO componente_curricular VALUES('IMD1013','IMD','INTRODUÇÃO AS TÉCNICAS DE PROGRAMAÇÃO','Graduação',60,'O');
+INSERT INTO componente_curricular VALUES('IMD1014','DIMAP','ANÁLISE E PROJETO ORIENTADO À OBJETO','Graduação',60,'E');
+INSERT INTO componente_curricular VALUES('IMD1015','IMD','SEGURANÇA DE REDES','Graduação', 60, 'E');
+INSERT INTO componente_curricular VALUES('IMD1016','IMD','PRÁTICA DE TÉCNICAS DE PROGRAMAÇÃO','Graduação', 60, 'O');
 */
+INSERT INTO historico_escolar VALUES(NULL,5,'IMD1010',8.5,'APROVADOR',2016.);
+INSERT INTO historico_escolar VALUES(NULL,5,'IMD1012',9.0,'APROVADOR',2017.);
+INSERT INTO historico_escolar VALUES(NULL,5,'IMD1011',8.,'APROVADOR',2017.);
+INSERT INTO historico_escolar VALUES(NULL,5,'IMD1014',NULL,'EM ANDAMENTO',2020.);
+INSERT INTO historico_escolar VALUES(NULL,5,'IMD1015',8.5,'APROVADOR',2018.);
+INSERT INTO historico_escolar VALUES(NULL,6,'IMD1016',7.5,'APROVADOR',2017.);
+INSERT INTO historico_escolar VALUES(NULL,6,'IMD1010',9,'APROVADOR',2016.);
+INSERT INTO historico_escolar VALUES(NULL,7,'IMD1010',8.5,'APROVADOR',2018.);
+INSERT INTO historico_escolar VALUES(NULL,7,'IMD1011',8.3,'APROVADOR',2018.);
+INSERT INTO historico_escolar VALUES(NULL,7,'IMD1015',NULL,'EM ANDAMENTO',2020.);
+
+
+CREATE TABLE grupo (
+  cod_grupo INTEGER,
+  matricula_aluno BIGINT,
+  CONSTRAINT PK_grupo PRIMARY KEY (cod_grupo, matricula_aluno),
+  FOREIGN KEY(matricula_aluno) REFERENCES usuario(matricula)
+);
+
+CREATE TABLE reuniao (
+  cod_reuniao INTEGER PRIMARY KEY NOT NULL,
+  matricula_professor BIGINT,
+  cod_grupo INTEGER,
+  assunto VARCHAR(200),
+  horario TIME,
+  mensagem VARCHAR(200),
+  data DATE,
+  FOREIGN KEY(matricula_professor) REFERENCES usuario(matricula),
+  FOREIGN KEY(cod_grupo) REFERENCES grupo(PK_grupo)
+);
+
+CREATE TABLE notificacao (
+  cod_notificacao INTEGER PRIMARY KEY NOT NULL,
+  assunto VARCHAR(200),
+  confirmacao CHAR,
+  mensagem VARCHAR(200),
+  data DATE
+);
+
+CREATE TABLE reuniao_notificacao (
+  cod_reuniao INTEGER,
+  cod_notificacao INTEGER,
+  CONSTRAINT PK_reuniao_notificacao PRIMARY KEY (cod_reuniao, cod_notificacao),
+  FOREIGN KEY(cod_reuniao) REFERENCES reuniao(cod_reuniao),
+  FOREIGN KEY(cod_notificacao) REFERENCES notificacao(cod_notificacao)
+);
+
+CREATE TABLE plano_notificacao (
+  cod_plano INTEGER,
+  cod_notificacao INTEGER,
+  CONSTRAINT PK_plano_notificacao PRIMARY KEY (cod_plano, cod_notificacao),
+  FOREIGN KEY(cod_plano) REFERENCES plano(cod_plano),
+  FOREIGN KEY(cod_notificacao) REFERENCES notificacao(cod_notificacao)
+);
+
+CREATE TABLE turma_aluno (
+  cod_turma INTEGER,
+  matricula_aluno BIGINT,
+  CONSTRAINT PK_turma_aluno PRIMARY KEY (cod_turma, matricula_aluno),
+  FOREIGN KEY(matricula_aluno) REFERENCES usuario(matricula)
+);
+
+CREATE TABLE turma (
+  cod_turma INTEGER PRIMARY KEY NOT NULL,
+  matricula_professor BIGINT,
+  cod_turma_aluno INTEGER,
+  ano_semestre VARCHAR(200),
+  horario TIME,
+  departamento VARCHAR(50),
+  disciplina VARCHAR(20),
+  FOREIGN KEY(disciplina) REFERENCES componente_curricular (cod_componente ), 
+  FOREIGN KEY(matricula_professor) REFERENCES usuario(matricula),
+  FOREIGN KEY(cod_turma_aluno) REFERENCES turma_aluno(PK_turma_aluno)
+);
+

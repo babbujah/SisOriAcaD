@@ -4,7 +4,8 @@ class UsuarioDAO extends TRecord{
     // inserir um objeto do tipo Usuario na base de dados
     public function inserirUsuario( $usuario, $tipoUsuario ){
         try{
-            TTransaction::open( 'basedados' );
+            TTransaction::open( 'minhabasedados' );
+            //TTransaction::open( 'basedados' );
           
             $usuario->store();
             
@@ -23,7 +24,8 @@ class UsuarioDAO extends TRecord{
     public function buscarUsuarioPorNome( $nomeUsuario ){
         //echo '<pre>'; print_r( $loginAluno ); echo '</pre>';
         try{
-            TTransaction::open( 'basedados' );
+            TTransaction::open( 'minhabasedados' );
+            //TTransaction::open( 'basedados' );
             //TTransaction::dump();
             
             $usuarios = Aluno::where( 'nome', '=', $nomeUsuario )->load();
@@ -48,7 +50,8 @@ class UsuarioDAO extends TRecord{
     // busca usuário por matrícula na base de dados
     public function buscarAlunoPorMatricula( $matriculaUsuario ){
         try{
-            TTransaction::open( 'basedados' );
+            TTransaction::open( 'minhabasedados' );
+            //TTransaction::open( 'basedados' );
             
             $alunos = Aluno::where( 'matricula', '=', $matriculaUsuario );
             //echo '<pre>'; print_r( $alunos ); echo '</prep>';

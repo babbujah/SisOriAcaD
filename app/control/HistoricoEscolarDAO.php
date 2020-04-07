@@ -24,7 +24,8 @@ class HistoricoEscolarDAO extends TRecord{
     
     public function buscarHistoricoPorMatricula( $matriculaAluno ){
         try{
-            TTransaction::open( 'basedados' );
+            TTransaction::open( 'minhabasedados' );
+            //TTransaction::open( 'basedados' );
             
             $criteria = new TCriteria;
             $criteria->add( new TFilter( 'matricula_aluno', '=', $matriculaAluno ) );

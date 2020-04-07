@@ -1,3 +1,8 @@
 gera_class_path.php
+# Windows
 app\database\*
 app\config\*
+
+# Linux
+app/database/*
+app/config/*
