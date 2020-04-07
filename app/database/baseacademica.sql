@@ -1,5 +1,5 @@
 CREATE TABLE usuario (
-  matricula INTEGER PRIMARY KEY NOT NULL,
+  matricula BIGINT PRIMARY KEY NOT NULL,
   nome VARCHAR(200),
   vinculo CHAR(1),
   status CHAR(1),
@@ -20,7 +20,7 @@ INSERT INTO usuario VALUES(10,'João Pedro','A','A', 'joaopedro@teste.com','03/0
 
 
 CREATE TABLE componente_curricular (
-  cod_componente INTEGER PRIMARY KEY NOT NULL,
+  cod_componente VARCHAR(20) PRIMARY KEY NOT NULL,
   departamento VARCHAR(50),
   nome VARCHAR(100) ,
   nivel VARCHAR(100),
@@ -29,16 +29,16 @@ CREATE TABLE componente_curricular (
 );
 
 CREATE TABLE pre_requisito (
-  cod_componente INTEGER,
-  pre_requisito INTEGER,
+  cod_componente VARCHAR(20),
+  pre_requisito VARCHAR(20),
   CONSTRAINT PK_pre_requisito PRIMARY KEY (cod_componente, pre_requisito),
   FOREIGN KEY(cod_componente) REFERENCES componente_curricular(cod_componente), 
   FOREIGN KEY(pre_requisito) REFERENCES componente_curricular(cod_componente)
 );
 
 CREATE TABLE co_requisito (
-  cod_componente INTEGER,
-  co_requisito INTEGER,
+  cod_componente VARCHAR(20),
+  co_requisito VARCHAR(20),
   CONSTRAINT PK_co_requisito PRIMARY KEY (cod_componente, co_requisito),
   FOREIGN KEY(cod_componente) REFERENCES componente_curricular(cod_componente), 
   FOREIGN KEY(co_requisito) REFERENCES componente_curricular(cod_componente)
@@ -46,13 +46,13 @@ CREATE TABLE co_requisito (
 
 CREATE TABLE plano_curso (
   cod_plano INTEGER PRIMARY KEY NOT NULL,
-  matricula_aluno INTEGER, 
+  matricula_aluno BIGINT, 
   FOREIGN KEY(matricula_aluno) REFERENCES usuario(matricula)
 );
 
 CREATE TABLE plano_curso_componente (
   cod_plano INTEGER,
-  cod_componente INTEGER,
+  cod_componente VARCHAR(20),
   CONSTRAINT PK_plano_componente PRIMARY KEY (cod_plano, cod_componente),
   FOREIGN KEY(cod_componente) REFERENCES componente_curricular(cod_componente), 
   FOREIGN KEY(cod_plano) REFERENCES plano_curso(cod_plano)
@@ -61,7 +61,7 @@ CREATE TABLE plano_curso_componente (
 CREATE TABLE orientacao (
   cod_orientacao INTEGER PRIMARY KEY NOT NULL,
   cod_plano INTEGER,
-  matricula_professor INTEGER,
+  matricula_professor BIGINT,
   data DATE,
   texto VARCHAR(200),
   FOREIGN KEY(matricula_professor) REFERENCES usuario(matricula), 
@@ -75,7 +75,7 @@ CREATE TABLE curso (
 );
 
 CREATE TABLE aluno (
-  matricula_aluno INTEGER,
+  matricula_aluno BIGINT,
   cod_curso INTEGER,
   CONSTRAINT PK_aluno PRIMARY KEY (matricula_aluno,cod_curso),
   FOREIGN KEY(matricula_aluno) REFERENCES usuario(matricula), 
@@ -84,15 +84,15 @@ CREATE TABLE aluno (
 
 CREATE TABLE curso_componente (
   cod_curso INTEGER,
-  cod_componente INTEGER,
+  cod_componente VARCHAR(20),
   CONSTRAINT PK_curso_componente PRIMARY KEY (cod_curso,cod_componente),
   FOREIGN KEY(cod_curso) REFERENCES curso(cod_curso), 
   FOREIGN KEY(cod_componente) REFERENCES componente_curricular(cod_componente)
 );
 
 CREATE TABLE historico_escolar (
-  id INTEGER PRIMARY KEY NOT NULL, 
-  matricula_aluno INTEGER,
+  id INT PRIMARY KEY NOT NULL AUTO_INCREMENT, 
+  matricula_aluno BIGINT,
   cod_componente VARCHAR(20),
   nota FLOAT,
   situacao VARCHAR(50),
@@ -103,14 +103,14 @@ CREATE TABLE historico_escolar (
 
 CREATE TABLE grupo (
   cod_grupo INTEGER,
-  matricula_aluno INTEGER,
+  matricula_aluno BIGINT,
   CONSTRAINT PK_grupo PRIMARY KEY (cod_grupo, matricula_aluno),
   FOREIGN KEY(matricula_aluno) REFERENCES usuario(matricula)
 );
 
 CREATE TABLE reuniao (
   cod_reuniao INTEGER PRIMARY KEY NOT NULL,
-  matricula_professor INTEGER,
+  matricula_professor BIGINT,
   cod_grupo INTEGER,
   assunto VARCHAR(200),
   horario TIME,
@@ -146,19 +146,19 @@ CREATE TABLE plano_notificacao (
 
 CREATE TABLE turma_aluno (
   cod_turma INTEGER,
-  matricula_aluno INTEGER,
+  matricula_aluno BIGINT,
   CONSTRAINT PK_turma_aluno PRIMARY KEY (cod_turma, matricula_aluno),
   FOREIGN KEY(matricula_aluno) REFERENCES usuario(matricula)
 );
 
 CREATE TABLE turma (
   cod_turma INTEGER PRIMARY KEY NOT NULL,
-  matricula_professor INTEGER,
+  matricula_professor BIGINT,
   cod_turma_aluno INTEGER,
   ano_semestre VARCHAR(200),
   horario TIME,
   departamento VARCHAR(50),
-  disciplina INTEGER,
+  disciplina VARCHAR(20),
   FOREIGN KEY(disciplina) REFERENCES componente_curricular (cod_componente ), 
   FOREIGN KEY(matricula_professor) REFERENCES usuario(matricula),
   FOREIGN KEY(cod_turma_aluno) REFERENCES turma_aluno(PK_turma_aluno)
