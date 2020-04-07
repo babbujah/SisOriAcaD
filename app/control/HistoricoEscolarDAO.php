@@ -9,7 +9,7 @@ class HistoricoEscolarDAO extends TRecord{
             
             echo '<pre>'; print_r( $matriculaUsuario ); echo '</prep>';
             $alunos = HistoricoEscolar::where( 'matricula_aluno', '=', $matriculaUsuario );
-            
+            echo '<pre>'; print_r( $alunos ); echo '</prep>';
             
             TTransaction::close();
             

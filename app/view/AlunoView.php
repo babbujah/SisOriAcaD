@@ -11,7 +11,13 @@ class AlunoView extends TPage{
             $this->html = new THtmlRenderer( 'app/templates/identificador-aluno/index.html' );
             
             // recebe nome de usuario do aluno. Deverá ser capturado das informações de sessão do usuário
+<<<<<<< HEAD
             $nomeAluno = 'Bruno César';            
+=======
+            $nomeAluno = 'Bruno César';
+            //recebe a matricula do aluno
+            $matriculaTeste = 20170001198;
+>>>>>>> c64efcf73b91ae7f523599275cbbe2fe5c44f20c
             
             // busca um aluno por nome de usuário na base de dados
             $controladorAluno = new ControladorAluno;
