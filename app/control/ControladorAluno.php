@@ -6,6 +6,13 @@ class ControladorAluno extends ControladorUsuario{
         ControladorUsuario::inserirUsuario( $aluno, 'Aluno' );
     }
     
+    public function comporHistoricoAluno( $matriculaAluno ){
+        $controladorHistoricoEscolar = new ControladorHistoricoEscolar;
+        // lista de objetos do tipo historicoEscolar
+        $historicoEscolarAluno = [];
+        $historicoEscolarAluno = $controladorHistoricoEscolar->buscarHistoricoAluno( $matriculaAluno ); 
+    }
+    
     /*
     // Busca aluno por nome
     public function buscarUsuarioPorNome( $nomeAluno ){
