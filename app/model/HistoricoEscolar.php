@@ -5,6 +5,8 @@ class HistoricoEscolar extends TRecord
     const PRIMARYKEY= 'id';
     const IDPOLICY =  'max'; // {max, serial}
     
+    private $listaRegistrosHistorico;
+    
     /**
      * Constructor method
      * @param $id Primary key to be loaded (optional)
@@ -19,5 +21,23 @@ class HistoricoEscolar extends TRecord
         parent::addAttribute('situacao');
         parent::addAttribute('ano');
         
+        $this->listaRegistrosHistorico = [];
+        
     }
+    
+    public function adicionarResgistroHistorico( $registroHistorico ){
+        $this->listaRegistrosHistorico[] = $registroHistorico;
+        
+    }
+    
+    public function removerRegistoHistorico( $indiceRegistro ){
+        unset($input[ $indiceRegistro ]);
+        
+    }
+    
+    public function pegarTodoHistoricoEscolar(){
+        $this->listaRegistrosHistorico;
+        
+    }    
+    
 }

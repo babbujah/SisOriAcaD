@@ -22,7 +22,7 @@ class HistoricoEscolarDAO extends TRecord{
     }
     */
     
-    public function buscarHistoricoPorMatricula( $matriculaAluno ){
+    public function buscarHistoricoPorMatricula( $matriculaAluno, $toArray = false /* True retorna Array */ ){
         try{
             TTransaction::open( 'minhabasedados' );
             //TTransaction::open( 'basedados' );
@@ -30,10 +30,13 @@ class HistoricoEscolarDAO extends TRecord{
             $criteria = new TCriteria;
             $criteria->add( new TFilter( 'matricula_aluno', '=', $matriculaAluno ) );
             
-            $repository = new TRepository( 'HistoricoEscolar' );
+            $repository = new RepositoryConstructor( 'HistoricoEscolar' );
             
-            $historicoEscolarAluno = $repository->load( $criteria );
-            
+            if( $toArray )
+                $historicoEscolarAluno = $repository->loadToArray( $criteria );
+            else
+                $historicoEscolarAluno = $repository->load( $criteria );
+                
             return $historicoEscolarAluno;
             
             TTransaction::close();
