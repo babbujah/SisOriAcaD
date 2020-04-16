@@ -3,12 +3,14 @@ class AlunoView extends TPage{
 
     private $html;
     private $matriculaAluno;
+    private $pathHtml;
     
     public function __construct(){
         parent::__construct();
+        $this->pathHtml = "app/resources/identificador-aluno/";
         
         try{
-            $this->html = new THtmlRenderer( 'app/templates/identificador-aluno/index.html' );
+            $this->html = new THtmlRenderer( 'app/resources/identificador-aluno/index.html' );
             
             // recebe nome de usuario do aluno. Deverá ser capturado das informações de sessão do usuário
 
@@ -96,13 +98,13 @@ class AlunoView extends TPage{
         $indices = [$indice1, $indice2, $indice3, $indice4];
         
         
-        $html = new HtmlRendererConstructor('app/templates/identificador-aluno/list.html');
+        $html = new HtmlRendererConstructor('app/resources/identificador-aluno/list.html');        
         $html->enableSection('list',$indices,true);
         $html->loadHtmlScreen('bloco-indice');       
     }
     
     private static function renderIndice( $indice ){        
-       $html = new HtmlRendererConstructor('app/templates/identificador-aluno/indice.html');
+       $html = new HtmlRendererConstructor('app/resources/identificador-aluno/indice.html');
        $html->enableSection('indice',[ 'key' => $indice ] );
        $html->loadHtmlScreen('bloco-indice');   
     }
@@ -116,7 +118,7 @@ class AlunoView extends TPage{
         
        $historicoAluno = $controladorHistorico->buscarHistoricoAluno( $matriculaAluno, true );       
                 
-       $html = new HtmlRendererConstructor('app/templates/identificador-aluno/historico.html');
+       $html = new HtmlRendererConstructor('app/resources/identificador-aluno/historico.html');
        //$html->enableSection('historico',[ 'key' => $indice ] );
        $html->enableSection('historico', $historicoAluno, true );
        
@@ -130,7 +132,7 @@ class AlunoView extends TPage{
         
         
                 
-        $html = new HtmlRendererConstructor('app/templates/identificador-aluno/chart.html');
+        $html = new HtmlRendererConstructor('app/resources/identificador-aluno/chart.html');
         //$html->enableSection('indice',$indice);        
                 
         $data = array();
