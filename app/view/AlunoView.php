@@ -3,7 +3,7 @@ class AlunoView extends TPage{
 
     private $html;
     private $matriculaAluno;
-    private $pathHtml;
+    //private $pathHtml;
     
     public function __construct(){
         parent::__construct();
@@ -33,15 +33,10 @@ class AlunoView extends TPage{
             $listaSubstituicao['email'] = $aluno->email;
             $listaSubstituicao['dataIngresso'] = $aluno->dataIngresso;
             $listaSubstituicao['vinculo'] = $aluno->vinculo;
-            /*
-            $listaSubstituicao['matricula_aluno'] = $listaSubstituicao['matricula_aluno'];
-            $listaSubstituicao['cod_componente'] = $listaSubstituicao['cod_componente'];
-            $listaSubstituicao['nota'] = $listaSubstituicao['nota'];
-            $listaSubstituicao['situacao'] = $listaSubstituicao['situacao'];
-            $listaSubstituicao['ano'] = $listaSubstituicao['ano'];
-            */
+            
             // habilita sessão html
-            $this->html->enableSection( 'cardAluno', $listaSubstituicao );            
+            //$this->html->enableSection( 'viewAluno', $listaSubstituicao );
+            $this->html->enableSection( 'viewAluno', [] );            
             
             $vbox = new TVBox;
             $vbox->style = 'width:100%';
@@ -52,8 +47,16 @@ class AlunoView extends TPage{
             parent::add($vbox);
             //parent::add($this->html);
             
-            self::renderBloco(['bloco' => 'list']);
+            self::renderBloco(['bloco' => 'dados-aluno', 'listaSubstituicao' => $listaSubstituicao]);
+            self::renderBloco(['bloco' => 'perfil']);
             self::renderBloco(['bloco' => 'historico']);
+            self::renderBloco(['bloco' => 'plano-curso']);
+            /*
+            self::renderBloco(['bloco' => 'disciplinas']);
+            
+            
+            self::renderBloco(['bloco' => 'list']);
+            */
             
          }catch( Exception $e ){
              new TMessage( 'error', $e->getMessage() );
@@ -72,7 +75,57 @@ class AlunoView extends TPage{
         }elseif( $param['bloco'] == 'historico' ){
             self::renderHistorico();
             
+        }elseif( $param['bloco'] == 'dados-aluno' ){
+            self::renderDadosAluno( $param );
+            
+        }elseif( $param['bloco'] == 'disciplinas' ){
+            self::renderDisciplinas( $param );
+            
+        }elseif( $param['bloco'] == 'perfil' ){
+            self::renderPerfil( $param );
+            
+        }elseif( $param['bloco'] == 'plano-curso' ){
+            self::renderPlanoCurso( $param );
+            
         }
+    }
+    
+    private static function renderDadosAluno( $param ){
+    /*
+        foreach( $param as $p ){
+            echo '<pre>';
+            print_r($p);
+            echo '</pre>';
+        }
+        
+        $dadosAluno = [];  
+        foreach( $param as $dado ){
+               $dadosAluno[] = $dado;
+               echo '<pre>';
+            print_r($dado);
+            echo '</pre>';
+            }
+        */     
+      
+        
+        $html = new HtmlRendererConstructor( 'app/resources/identificador-aluno/dados-aluno.html' );
+        $html->enableSection( 'main', $param );
+        $html->loadHtmlScreen( 'bloco-dados-aluno' );
+        
+    }
+    
+    private static function renderPerfil( $param ){
+        $html = new HtmlRendererConstructor( 'app/resources/identificador-aluno/perfil.html' );
+        $html->enableSection( 'viewPerfil', $param );
+        $html->loadHtmlScreen( 'bloco-perfil' );
+        
+    }
+    
+    private static function renderPlanoCurso( $param ){
+        $html = new HtmlRendererConstructor( 'app/resources/identificador-aluno/plano-curso.html' );
+        $html->enableSection( 'viewPlanoCurso', $param );
+        $html->loadHtmlScreen( 'bloco-plano-curso' );
+        
     }
     
     private static function renderList(){
