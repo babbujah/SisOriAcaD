@@ -27,7 +27,7 @@ abstract class ControladorUsuario{
     }
     
     // Busca usuario por nome
-    public function buscarUsuarioPorNome( $nomeUsuario, $toArray = false ){
+    private function buscarUsuarioPorNome( $nomeUsuario, $toArray = false ){
         //echo '<pre>'; print_r( $nomeAluno ); echo '</prep>';
         
         $usuarioDAO = new UsuarioDAO;
@@ -38,7 +38,7 @@ abstract class ControladorUsuario{
     }
     
     // busca usuario por matrícula na base de dados
-    public function buscarUsuarioPorMatricula( $matriculaUsuario, $toArray = false ){
+    private function buscarUsuarioPorMatricula( $matriculaUsuario, $toArray = false ){
     
         //echo '<pre>'; print_r( $nomeAluno ); echo '</prep>';
         
