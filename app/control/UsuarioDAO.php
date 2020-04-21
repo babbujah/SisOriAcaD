@@ -48,7 +48,7 @@ class UsuarioDAO extends TRecord{
     }
     
     // busca usuário por matrícula na base de dados
-    public function buscarAlunoPorMatricula( $matriculaUsuario, $toArray = false ){
+    public function buscarUsuarioPorMatricula( $matriculaUsuario, $toArray = false ){
                 
         try{
             TTransaction::open( 'minhabasedados' );
