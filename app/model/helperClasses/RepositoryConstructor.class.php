@@ -17,5 +17,14 @@ class RepositoryConstructor extends TRepository
         
         return $objectArray;                    
     }
+    
+    public function firstToArray($callObjectLoad = TRUE)
+    {
+        $collection = $this->take(1)->load(null, $callObjectLoad);
+        if (isset($collection[0]))
+        {
+            return $collection[0]->toArray();
+        }
+    }
         
 }
