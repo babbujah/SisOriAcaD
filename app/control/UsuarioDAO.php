@@ -21,7 +21,7 @@ class UsuarioDAO extends TRecord{
     
     // busca usuário pelo nome de usuário na base de dados
     // obsoleta
-    public function buscarUsuarioPorNome( $nomeUsuario ){
+    public function buscarUsuarioPorNome( $nomeUsuario, $toArray = false ){
         //echo '<pre>'; print_r( $loginAluno ); echo '</pre>';
         try{
             TTransaction::open( 'minhabasedados' );
@@ -48,20 +48,25 @@ class UsuarioDAO extends TRecord{
     }
     
     // busca usuário por matrícula na base de dados
-    public function buscarAlunoPorMatricula( $matriculaUsuario ){
+    public function buscarAlunoPorMatricula( $matriculaUsuario, $toArray = false ){
+                
         try{
             TTransaction::open( 'minhabasedados' );
             //TTransaction::open( 'basedados' );
             
-            $alunos = Aluno::where( 'matricula', '=', $matriculaUsuario );
-            //echo '<pre>'; print_r( $alunos ); echo '</prep>';
+            if( $toArray ){
+                $repository = new RepositoryConstructor( 'Usuario' );
+                $usuario = $repository->where('matricula','=',$matriculaUsuario)->firstToArray();                
+            }else {
+                $usuario = Usuario::where('matricula','=',$matriculaUsuario)->first();
+            }
+                
+            return $usuario;
             
             TTransaction::close();
             
-            return $alunos[0];
-            
         }catch( Exception $e ){
-            new TMessage( 'error', $e->getMessage() );
+            new TMessage( 'erro', $e->getMessage() );
             
         }
     }
