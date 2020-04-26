@@ -6,37 +6,43 @@ class ControladorAluno extends ControladorUsuario{
         ControladorUsuario::inserirUsuario( $aluno, 'Aluno' );
     }
     
-    public function comporHistoricoAluno( $matriculaAluno ){
+    public function comporHistoricoAluno( $aluno ){
         $controladorHistoricoEscolar = new ControladorHistoricoEscolar;
         // lista de objetos do tipo historicoEscolar
+        $matriculaAluno = $aluno->matricula;
         $historicoEscolarAluno = [];
-        $historicoEscolarAluno = $controladorHistoricoEscolar->buscarHistoricoAluno( $matriculaAluno ); 
+        $historicoEscolarAluno = $controladorHistoricoEscolar->buscarHistoricoAluno( $matriculaAluno, true );
+        
+        $aluno->historicoEscolarAluno = $historicoEscolarAluno;
     }
     
+    public function comporPerfilAluno( $aluno ){
+        self::calculaQntSemestres( $aluno );
+        /*
+        self::calculaQntDisciplinas( $aluno );
+        serlf::calculaCargaHoraria( $aluno );
+        self::calculaMedia( $aluno );
+        self::calculaNotaMaxima( $aluno );
+        self::calculaNotaMinima( $aluno );
+        self::calculaDisciplinasAprovadas( $aluno );
+        self::calculaDisciplinasReprovadas( $aluno );
+        */
+    }
+    
+    private function calculaQntSemestres( $aluno ){
+        $tempHistoricoAluno = $aluno->historicoEscolarAluno;
+        foreach(){
+            $tempDisciplinaAndamento
+        }
+    }
     /*
-    // Busca aluno por nome
-    public function buscarUsuarioPorNome( $nomeAluno ){
-        //echo '<pre>'; print_r( $nomeAluno ); echo '</prep>';
-        
-        $usuarioDAO = new UsuarioDAO;
-        
-        $aluno = $usuarioDAO->buscarUsuarioPorNome( $nomeAluno );
-        
-        return $aluno;
-    }
-    
-    // busca aluno por matrícula na base de dados
-    public function buscarUsuarioPorMatricula( $matriculaAluno ){
-    
-        $listaCaracterMatriculaTemp = str_split( $matriculaAluno );
-        $primeiroCaracter = chr( $listaCaracterMatriculaTemp[0] );
-        echo $primeiroCaracter;
-        
-        $usuarioDAO = new UsuarioDAO;
-        
-        $aluno = $usuarioDAO->buscarUsurioPorMatricula( $matriculaAluno );
-        
-        return $aluno;
-    }
-    */  
+    self::calculaQntDisciplinas( $aluno );
+    serlf::calculaCargaHoraria( $aluno );
+    self::calculaMedia( $aluno );
+    self::calculaNotaMaxima( $aluno );
+    self::calculaNotaMinima( $aluno );
+    self::calculaDisciplinasAprovadas( $aluno );
+    self::calculaDisciplinasReprovadas( $aluno );
+    */
+   
 }

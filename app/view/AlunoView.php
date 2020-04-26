@@ -79,13 +79,25 @@ class AlunoView extends TPage{
     public static function renderBloco( $matriculaAluno ){
         
         $controladorAluno = new ControladorAluno();
-        $dadosAluno = [];
-        $dadosAluno = $controladorAluno->buscarUsuario( $matriculaAluno, true );
+        //$dadosAluno = [];
+        //$dadosAluno = $controladorAluno->buscarUsuario( $matriculaAluno, true );
+        $aluno = new Aluno();
+        $aluno = $controladorAluno->buscarUsuario( $matriculaAluno );
         
-        self::renderDadosAluno( $dadosAluno );
+        self::renderDadosAluno( $aluno );
+        
         self::renderDisciplinas( $matriculaAluno );
+        
+        $controladorAluno->comporPerfilAluno( $aluno );
         self::renderPerfil( $matriculaAluno );
-        self::renderHistorico( $matriculaAluno );
+        
+        $controladorAluno->comporHistoricoAluno( $aluno );
+        
+        self::renderHistorico( $aluno );
+        
+        
+        
+        
         self::renderPlanoCurso( $matriculaAluno );
     }
     
@@ -116,9 +128,9 @@ class AlunoView extends TPage{
     }
     */
     
-    private static function renderDadosAluno( $dadosAluno ){        
+    private static function renderDadosAluno( $aluno ){        
         $html = new HtmlRendererConstructor( 'app/resources/identificador-aluno/dados-aluno.html' );
-        $html->enableSection( 'main', $dadosAluno );
+        $html->enableSection( 'main', $aluno->toArray() );
         $html->loadHtmlScreen( 'bloco-dados-aluno' );
         
     }
@@ -127,9 +139,11 @@ class AlunoView extends TPage{
         // Carrega as disciplinas integralizadas
     }
     
-    private static function renderPerfil( $param ){
+    private static function renderPerfil( $aluno ){
+        $dadosAluno = [];
+        
         $html = new HtmlRendererConstructor( 'app/resources/identificador-aluno/perfil.html' );
-        $html->enableSection( 'viewPerfil', $param );
+        $html->enableSection( 'viewPerfil', $dadosAluno );
         $html->loadHtmlScreen( 'bloco-perfil' );
         
     }
@@ -139,6 +153,36 @@ class AlunoView extends TPage{
         $html->enableSection( 'viewPlanoCurso', $param );
         $html->loadHtmlScreen( 'bloco-plano-curso' );
         
+    }    
+    
+    private static function renderIndice( $indice ){        
+       $html = new HtmlRendererConstructor('app/resources/identificador-aluno/indice.html');
+       $html->enableSection('indice',[ 'key' => $indice ] );
+       $html->loadHtmlScreen('bloco-indice');   
+    }
+    
+    private static function renderHistorico( $aluno ){
+       /*
+       //recebe a matricula do aluno
+       $matriculaAluno = '7';
+       
+       //busca por um historico na base de dados
+       $controladorHistorico = new ControladorHistoricoEscolar;
+        
+       $historicoAluno = $controladorHistorico->buscarHistoricoAluno( $matriculaAluno, true );
+       
+       $dados = [];  
+        foreach( $historicoAluno as $dado ){
+               $dados[] = $dado;
+        } 
+        */
+       $historicoAluno = $aluno->historicoEscolarAluno;
+       //var_dump( $historicoAluno );       
+       $html = new HtmlRendererConstructor('app/resources/identificador-aluno/historico.html');
+       //$html->enableSection('historico',[ 'key' => $indice ] );
+       $html->enableSection('historico', $historicoAluno, true );
+       
+       $html->loadHtmlScreen('bloco-historico');   
     }
     
     private static function renderList(){
@@ -167,33 +211,6 @@ class AlunoView extends TPage{
         $html = new HtmlRendererConstructor('app/resources/identificador-aluno/list.html');        
         $html->enableSection('list',$indices,true);
         $html->loadHtmlScreen('bloco-indice');       
-    }
-    
-    private static function renderIndice( $indice ){        
-       $html = new HtmlRendererConstructor('app/resources/identificador-aluno/indice.html');
-       $html->enableSection('indice',[ 'key' => $indice ] );
-       $html->loadHtmlScreen('bloco-indice');   
-    }
-    
-    private static function renderHistorico(){
-       //recebe a matricula do aluno
-       $matriculaAluno = '7';
-       
-       //busca por um historico na base de dados
-       $controladorHistorico = new ControladorHistoricoEscolar;
-        
-       $historicoAluno = $controladorHistorico->buscarHistoricoAluno( $matriculaAluno, true );
-       
-       $dados = [];  
-        foreach( $historicoAluno as $dado ){
-               $dados[] = $dado;
-        } 
-                
-       $html = new HtmlRendererConstructor('app/resources/identificador-aluno/historico.html');
-       //$html->enableSection('historico',[ 'key' => $indice ] );
-       $html->enableSection('historico', $historicoAluno, true );
-       
-       $html->loadHtmlScreen('bloco-historico');   
     }
     
     public function viewChart( $param ){

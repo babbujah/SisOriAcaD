@@ -1,11 +1,13 @@
 <?php
 class Aluno extends Usuario{
 
-    private $historicoEscolarAluno;
+    public $historicoEscolarAluno;
+    public $perfilAluno;
     
     public function __construct(){
         parent::__construct();
         $this->historicoEscolarAluno = [];
+        $this->perfilAluno = [];
     }
     
     public function getHistoricoEscolarAluno(){
