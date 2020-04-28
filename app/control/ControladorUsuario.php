@@ -26,17 +26,6 @@ abstract class ControladorUsuario{
         return $usuario;
     }
     
-    // Busca usuario por nome
-    private function buscarUsuarioPorNome( $nomeUsuario, $toArray = false ){
-        //echo '<pre>'; print_r( $nomeAluno ); echo '</prep>';
-        
-        $usuarioDAO = new UsuarioDAO;
-        
-        $usuario = $usuarioDAO->buscarUsuarioPorNome( $nomeUsuario, $toArray );
-        
-        return $usuario;
-    }
-    
     // busca usuario por matrícula na base de dados
     private function buscarUsuarioPorMatricula( $matriculaUsuario, $toArray = false ){
     
@@ -48,4 +37,17 @@ abstract class ControladorUsuario{
         
         return $usuario;
     }  
+    
+    // Busca usuario por nome
+    private function buscarUsuarioPorNome( $nomeUsuario, $toArray = false ){
+        //echo '<pre>'; print_r( $nomeAluno ); echo '</prep>';
+        
+        $usuarioDAO = new UsuarioDAO;
+        
+        $usuario = $usuarioDAO->buscarUsuarioPorNome( $nomeUsuario, $toArray );
+        
+        return $usuario;
+    }
+    
+    
 }

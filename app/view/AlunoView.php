@@ -10,31 +10,7 @@ class AlunoView extends TPage{
         //$this->pathHtml = "app/resources/identificador-aluno/";
         
         try{
-            
-            /*
-            // recebe nome de usuario do aluno. Deverá ser capturado das informações de sessão do usuário
-
-            //$nomeAluno = 'Bruno César';            
-
-            $nomeAluno = 'Ágatha Gabrielly';
-            //recebe a matricula do aluno
-            //$matriculaTeste = 20170001198;
-
-            
-            // busca um aluno por nome de usuário na base de dados
-            $controladorAluno = new ControladorAluno;
-            $aluno = $controladorAluno->buscarUsuarioPorNome( $nomeAluno );
-            
-            // lista para substituição dos valores na tela
-            $listaSubstituicao = [];
-            $listaSubstituicao['matricula'] = $aluno->matricula;
-            $listaSubstituicao['nome'] = $aluno->nome;            
-            $listaSubstituicao['status'] = $aluno->status;
-            $listaSubstituicao['email'] = $aluno->email;
-            $listaSubstituicao['dataIngresso'] = $aluno->dataIngresso;
-            $listaSubstituicao['vinculo'] = $aluno->vinculo;
-            */
-            
+           
             // habilita sessão html
             //$this->html->enableSection( 'viewAluno', $listaSubstituicao );
             $this->html = new HtmlRendererConstructor( 'app/resources/identificador-aluno/index.html' );
@@ -49,7 +25,7 @@ class AlunoView extends TPage{
             parent::add($vbox);
             //parent::add($this->html);
             
-            $this->matriculaAluno = 7;
+            $this->matriculaAluno = 5;
             
             self::renderBloco( $this->matriculaAluno );
             
@@ -82,16 +58,16 @@ class AlunoView extends TPage{
         //$dadosAluno = [];
         //$dadosAluno = $controladorAluno->buscarUsuario( $matriculaAluno, true );
         $aluno = new Aluno();
-        $aluno = $controladorAluno->buscarUsuario( $matriculaAluno );
+        $aluno = $controladorAluno->buscarUsuario( $matriculaAluno ); // necessário downcast de usuário para aluno
+        $aluno->setAnoIngresso();
+        $controladorAluno->comporHistoricoAluno( $aluno );
+        $controladorAluno->comporPerfilAluno( $aluno );
         
         self::renderDadosAluno( $aluno );
         
-        self::renderDisciplinas( $matriculaAluno );
+        self::renderDisciplinas( $matriculaAluno );        
         
-        $controladorAluno->comporPerfilAluno( $aluno );
-        self::renderPerfil( $matriculaAluno );
-        
-        $controladorAluno->comporHistoricoAluno( $aluno );
+        self::renderPerfil( $matriculaAluno );        
         
         self::renderHistorico( $aluno );
         
@@ -101,32 +77,7 @@ class AlunoView extends TPage{
         self::renderPlanoCurso( $matriculaAluno );
     }
     
-    /*
-    public static function renderBloco( $param ){
-        if( $param['bloco'] == 'list' ){
-            self::renderList();
-        
-        }elseif( $param['bloco'] == 'indice' && !empty($param['key']) ){
-            self::renderIndice( $param['key'] );
-            
-        }elseif( $param['bloco'] == 'historico' ){
-            self::renderHistorico();
-            
-        }elseif( $param['bloco'] == 'dados-aluno' ){
-            self::renderDadosAluno( $param );
-            
-        }elseif( $param['bloco'] == 'disciplinas' ){
-            self::renderDisciplinas( $param );
-            
-        }elseif( $param['bloco'] == 'perfil' ){
-            self::renderPerfil( $param );
-            
-        }elseif( $param['bloco'] == 'plano-curso' ){
-            self::renderPlanoCurso( $param );
-            
-        }
-    }
-    */
+    
     
     private static function renderDadosAluno( $aluno ){        
         $html = new HtmlRendererConstructor( 'app/resources/identificador-aluno/dados-aluno.html' );
@@ -162,20 +113,7 @@ class AlunoView extends TPage{
     }
     
     private static function renderHistorico( $aluno ){
-       /*
-       //recebe a matricula do aluno
-       $matriculaAluno = '7';
        
-       //busca por um historico na base de dados
-       $controladorHistorico = new ControladorHistoricoEscolar;
-        
-       $historicoAluno = $controladorHistorico->buscarHistoricoAluno( $matriculaAluno, true );
-       
-       $dados = [];  
-        foreach( $historicoAluno as $dado ){
-               $dados[] = $dado;
-        } 
-        */
        $historicoAluno = $aluno->historicoEscolarAluno;
        //var_dump( $historicoAluno );       
        $html = new HtmlRendererConstructor('app/resources/identificador-aluno/historico.html');
@@ -184,6 +122,33 @@ class AlunoView extends TPage{
        
        $html->loadHtmlScreen('bloco-historico');   
     }
+    
+    /*
+    public static function renderBloco( $param ){
+        if( $param['bloco'] == 'list' ){
+            self::renderList();
+        
+        }elseif( $param['bloco'] == 'indice' && !empty($param['key']) ){
+            self::renderIndice( $param['key'] );
+            
+        }elseif( $param['bloco'] == 'historico' ){
+            self::renderHistorico();
+            
+        }elseif( $param['bloco'] == 'dados-aluno' ){
+            self::renderDadosAluno( $param );
+            
+        }elseif( $param['bloco'] == 'disciplinas' ){
+            self::renderDisciplinas( $param );
+            
+        }elseif( $param['bloco'] == 'perfil' ){
+            self::renderPerfil( $param );
+            
+        }elseif( $param['bloco'] == 'plano-curso' ){
+            self::renderPlanoCurso( $param );
+            
+        }
+    }
+    */
     
     private static function renderList(){
         /*

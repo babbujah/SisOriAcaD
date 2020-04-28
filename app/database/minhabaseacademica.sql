@@ -27,17 +27,7 @@ CREATE TABLE componente_curricular (
   carga_horaria INTEGER,
   tipo CHAR(1)
 );
-/*
-INSERT INTO departamento VALUES(1,'ECT');
-INSERT INTO departamento VALUES(2,'IMD');
-INSERT INTO departamento VALUES(3,'DIMAP');
 
-INSERT INTO nivel VALUES(1,'Técnico');
-INSERT INTO nivel VALUES(2,'Médio');
-INSERT INTO nivel VALUES(3,'Graduação');
-INSERT INTO nivel VALUES(4,'Mestrado'); 
-INSERT INTO nivel VALUES(5,'Doutorado');
-*/
 INSERT INTO componente_curricular VALUES('ECT1201','ECT','ALGEBRA LINEAR','Graduação',60,'O');
 INSERT INTO componente_curricular VALUES('ECT1543','ECT','BANCO DE DADOS','Graduação',90,'O');
 INSERT INTO componente_curricular VALUES('ECT1203','ECT','LINGUAGEM DE PROGRAMAÇÃO','Graduação',60,'O');
@@ -59,12 +49,9 @@ CREATE TABLE pre_requisito (
   FOREIGN KEY(pre_requisito) REFERENCES componente_curricular(cod_componente)
 );
 
-/*INSERT INTO pre_requisito VALUES(1,1,NULL);*/
 INSERT INTO pre_requisito VALUES(1,'IMD1012','IMD1010');
 INSERT INTO pre_requisito VALUES(2,'IMD1011','IMD1013');
 INSERT INTO pre_requisito VALUES(3,'IMD1011','IMD1016');
-/*INSERT INTO pre_requisito VALUES(5,5,NULL);
-INSERT INTO pre_requisito VALUES(6,6,NULL);*/
 INSERT INTO pre_requisito VALUES(4,'IMD1013','IMD1010');
 INSERT INTO pre_requisito VALUES(5,'IMD1016','IMD1010');
 
@@ -132,29 +119,17 @@ CREATE TABLE historico_escolar (
   FOREIGN KEY(matricula_aluno) REFERENCES usuario(matricula), 
   FOREIGN KEY(cod_componente) REFERENCES componente_curricular(cod_componente)
 );
-/*
-INSERT INTO componente_curricular VALUES('ECT1201','IMD','ALGEBRA LINEAR','Graduação',60,'O');
-INSERT INTO componente_curricular VALUES('ECT1543','IMD','BANCO DE DADOS','Graduação',90,'O');
-INSERT INTO componente_curricular VALUES('ECT1203','IMD','LINGUAGEM DE PROGRAMAÇÃO','Graduação',60,'O');
-INSERT INTO componente_curricular VALUES('ECT1402','ECT','MECÂNICA DOS SÓLIDOS','Graduação',60,'E');
-INSERT INTO componente_curricular VALUES('IMD1010','IMD','RESOLUÇÃO DE PROBLEMAS MATEMÁTICOS PARA TI','Graduação',180,'O');
-INSERT INTO componente_curricular VALUES('IMD1011','IMD','LÓGICA DE PROGRAMAÇÃO 1','Graduação', 90, 'O');
-INSERT INTO componente_curricular VALUES('IMD1012','IMD','CÁLCULO 1','Graduação', 90, 'O');
-INSERT INTO componente_curricular VALUES('IMD1013','IMD','INTRODUÇÃO AS TÉCNICAS DE PROGRAMAÇÃO','Graduação',60,'O');
-INSERT INTO componente_curricular VALUES('IMD1014','DIMAP','ANÁLISE E PROJETO ORIENTADO À OBJETO','Graduação',60,'E');
-INSERT INTO componente_curricular VALUES('IMD1015','IMD','SEGURANÇA DE REDES','Graduação', 60, 'E');
-INSERT INTO componente_curricular VALUES('IMD1016','IMD','PRÁTICA DE TÉCNICAS DE PROGRAMAÇÃO','Graduação', 60, 'O');
-*/
-INSERT INTO historico_escolar VALUES(NULL,5,'IMD1010',8.5,'APROVADOR',2016.);
-INSERT INTO historico_escolar VALUES(NULL,5,'IMD1012',9.0,'APROVADOR',2017.);
-INSERT INTO historico_escolar VALUES(NULL,5,'IMD1011',8.,'APROVADOR',2017.);
-INSERT INTO historico_escolar VALUES(NULL,5,'IMD1014',NULL,'EM ANDAMENTO',2020.);
-INSERT INTO historico_escolar VALUES(NULL,5,'IMD1015',8.5,'APROVADOR',2018.);
-INSERT INTO historico_escolar VALUES(NULL,6,'IMD1016',7.5,'APROVADOR',2017.);
-INSERT INTO historico_escolar VALUES(NULL,6,'IMD1010',9,'APROVADOR',2016.);
-INSERT INTO historico_escolar VALUES(NULL,7,'IMD1010',8.5,'APROVADOR',2018.);
-INSERT INTO historico_escolar VALUES(NULL,7,'IMD1011',8.3,'APROVADOR',2018.);
-INSERT INTO historico_escolar VALUES(NULL,7,'IMD1015',NULL,'EM ANDAMENTO',2020.);
+
+INSERT INTO historico_escolar VALUES(NULL,5,'IMD1010',8.5,'APROVADO',2016.1);
+INSERT INTO historico_escolar VALUES(NULL,5,'IMD1012',9.0,'APROVADO',2017.2);
+INSERT INTO historico_escolar VALUES(NULL,5,'IMD1011',8.,'APROVADO',2017.2);
+INSERT INTO historico_escolar VALUES(NULL,5,'IMD1014',NULL,'EM ANDAMENTO',2020.1);
+INSERT INTO historico_escolar VALUES(NULL,5,'IMD1015',8.5,'APROVADO',2018.1);
+INSERT INTO historico_escolar VALUES(NULL,6,'IMD1016',7.5,'APROVADO',2017.1);
+INSERT INTO historico_escolar VALUES(NULL,6,'IMD1010',9,'APROVADO',2016.2);
+INSERT INTO historico_escolar VALUES(NULL,7,'IMD1010',8.5,'APROVADO',2018.2);
+INSERT INTO historico_escolar VALUES(NULL,7,'IMD1011',8.3,'APROVADO',2018.1);
+INSERT INTO historico_escolar VALUES(NULL,7,'IMD1015',NULL,'EM ANDAMENTO',2020.1);
 
 
 CREATE TABLE grupo (
