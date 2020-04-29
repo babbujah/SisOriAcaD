@@ -20,6 +20,29 @@ class PerfilAluno {
         $disciplinasReprovadas = 0;
     }
     
+    public function copiarPerfilAluno( PerfilAluno $perfilAluno ){
+        /*
+        $qntSemestres = $aluno->getPerfilAluno()->getQntSemestre();
+        $qntDisciplinas = $aluno->getPerfilAluno()->getQntDisciplinas();
+        $cargaHoraria = $aluno->getPerfilAluno()->getCargaHoraria();
+        $media = $aluno->getPerfilAluno()->getMedia();
+        $notaMaxima = $aluno->getPerfilAluno()->getNotaMaxima();
+        $notaMinima = $aluno->getPerfilAluno()->getNotaMinima();
+        $disciplinasAprovadas = $aluno->getPerfilAluno()->getDisciplinasAprovadas();
+        $disciplinasReprovadas = $aluno->getPerfilAluno()->getDisciplinasReprovadas();
+        */
+        //var_dump( $ );
+        $this->qntSemestres = $perfilAluno->getQntSemestres();
+        $this->qntDisciplinas = $perfilAluno->getQntDisciplinas();
+        $this->cargaHoraria = $perfilAluno->getCargaHoraria();
+        $this->media = $perfilAluno->getMedia();
+        $this->notaMaxima = $perfilAluno->getNotaMaxima();
+        $this->notaMinima = $perfilAluno->getNotaMinima();
+        $this->disciplinasAprovadas = $perfilAluno->getDisciplinasAprovadas();
+        $this->disciplinasReprovadas = $perfilAluno->getDisciplinasReprovadas();
+        
+    }
+    
     public function getQntSemestres(){
         return $this->qntSemestres;
         
@@ -95,5 +118,17 @@ class PerfilAluno {
     public function setDisciplinasReprovadas( $disciplinasReprovadas ){
         $this->disciplinasReprovadas = $disciplinasReprovadas;
         
+    }
+    
+    public function toArray(){
+        
+        $data = array();
+        
+        foreach( $this as $key => $value ){
+            $data[$key] = $value;
+        }
+        
+        
+        return $data;
     }
 }
