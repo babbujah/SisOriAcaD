@@ -31,7 +31,9 @@ class ControladorAluno extends ControladorUsuario{
         self::calculaDisciplinasReprovadas( $aluno );
         */
         
-        return $perfilAluno;
+        $aluno->setPerfilAluno( $perfilAluno );
+        
+        //return $perfilAluno;
     }
     
     private function calculaQntSemestres( $aluno ){
@@ -51,6 +53,10 @@ class ControladorAluno extends ControladorUsuario{
         $anoPeriodoEntrada = new AnoSemestre();
         $anoPeriodoEntrada->setAno( $aluno->getAnoIngresso()->getAno() );
         $anoPeriodoEntrada->setSemestre( $aluno->getAnoIngresso()->getSemestre() );
+        //get_class( $anoPeriodoAtual->getAno() );
+        //echo gettype( $anoPeriodoEntrada->getAno() );
+        //echo $anoPeriodoEntrada->getAno();
+        //var_dump( $anoPeriodoEntrada->getAno() + ' ' + $anoPeriodoAtual->getAno() );
         
         $qntSemestres = 0;
         if( ($anoPeriodoAtual->getAno() - $anoPeriodoEntrada->getAno()) == 0 ){
@@ -77,6 +83,7 @@ class ControladorAluno extends ControladorUsuario{
             
             $qntSemestres += $anoPeriodoAtual->getSemestre();
         }
+        //var_dump($qntSemestres);
         
         return $qntSemestres;
         
