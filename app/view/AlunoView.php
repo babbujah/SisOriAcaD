@@ -62,12 +62,13 @@ class AlunoView extends TPage{
         $aluno->setAnoIngresso();
         $controladorAluno->comporHistoricoAluno( $aluno );
         $controladorAluno->comporPerfilAluno( $aluno );
+        //var_dump($aluno->getPerfilAluno());
         
         self::renderDadosAluno( $aluno );
         
         self::renderDisciplinas( $matriculaAluno );        
         
-        self::renderPerfil( $matriculaAluno );        
+        self::renderPerfil( $aluno );        
         
         self::renderHistorico( $aluno );
         
@@ -91,10 +92,15 @@ class AlunoView extends TPage{
     }
     
     private static function renderPerfil( $aluno ){
-        $dadosAluno = [];
+        $perfilAluno = new PerfilAluno();
+        $perfilAluno->copiarPerfilAluno( $aluno->getPerfilAluno() );
+        //var_dump( $perfilAluno->getQntSemestres() );
+        //echo get_class($perfilAluno->toArray());
+        //echo gettype( $perfilAluno->toArray() ) + '<br>';
+        var_dump($perfilAluno->toArray());
         
         $html = new HtmlRendererConstructor( 'app/resources/identificador-aluno/perfil.html' );
-        $html->enableSection( 'viewPerfil', $dadosAluno );
+        $html->enableSection( 'viewPerfil', $perfilAluno->toArray() );
         $html->loadHtmlScreen( 'bloco-perfil' );
         
     }
