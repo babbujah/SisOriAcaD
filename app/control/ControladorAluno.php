@@ -21,8 +21,9 @@ class ControladorAluno extends ControladorUsuario{
         //$aluno->setAnoIngresso();
         $perfilAluno = new PerfilAluno();
         $perfilAluno->setQntSemestres( self::calculaQntSemestres( $aluno ) );
+        $perfilAluno->setQntDisciplinas( self::calculaQntDisciplinas( $aluno ) );
         /*
-        self::calculaQntDisciplinas( $aluno );
+        
         serlf::calculaCargaHoraria( $aluno );
         self::calculaMedia( $aluno );
         self::calculaNotaMaxima( $aluno );
@@ -53,12 +54,18 @@ class ControladorAluno extends ControladorUsuario{
         $anoPeriodoEntrada = new AnoSemestre();
         $anoPeriodoEntrada->setAno( $aluno->getAnoIngresso()->getAno() );
         $anoPeriodoEntrada->setSemestre( $aluno->getAnoIngresso()->getSemestre() );
+        
+        $qntSemestres = PerfilAluno::calculaQntSemestres( $anoPeriodoAtual, $anoPeriodoEntrada );
+        
+        
         //get_class( $anoPeriodoAtual->getAno() );
         //echo gettype( $anoPeriodoEntrada->getAno() );
         //echo $anoPeriodoEntrada->getAno();
         //var_dump( $anoPeriodoEntrada->getAno() + ' ' + $anoPeriodoAtual->getAno() );
         
-        $qntSemestres = 0;
+        
+        
+        /*
         if( ($anoPeriodoAtual->getAno() - $anoPeriodoEntrada->getAno()) == 0 ){
             if( $anoPeriodoAtual->getSemestre() == $anoPeriodoEntrada->getSemestre() ){
                 $qntSemestres = 1;
@@ -84,13 +91,27 @@ class ControladorAluno extends ControladorUsuario{
             $qntSemestres += $anoPeriodoAtual->getSemestre();
         }
         //var_dump($qntSemestres);
-        
+        */
         return $qntSemestres;
         
         
     }
+    
+    private function calculaQntDisciplinas( $aluno ){
+        $tempHistoricoAluno = $aluno->historicoEscolarAluno;
+                
+        $qntDisciplinas = PerfilAluno::calculaQntDisciplinas( $tempHistoricoAluno );
+        /*
+        foreach( $tempHistoricoAluno as $registro ){
+            if( $registro['situacao'] == 'APROVADO' ){
+                $qntDisciplinas += 1;
+                
+            }
+        }
+        */
+        return $qntDisciplinas;
+    }
     /*
-    self::calculaQntDisciplinas( $aluno );
     serlf::calculaCargaHoraria( $aluno );
     self::calculaMedia( $aluno );
     self::calculaNotaMaxima( $aluno );

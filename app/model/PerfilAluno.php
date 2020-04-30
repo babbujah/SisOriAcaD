@@ -20,6 +20,53 @@ class PerfilAluno {
         $disciplinasReprovadas = 0;
     }
     
+    public static function calculaQntSemestres( AnoSemestre $anoPeriodoAtual, AnoSemestre $anoPeriodoEntrada ){
+                
+        $qntSemestres = 0;
+        if( ($anoPeriodoAtual->getAno() - $anoPeriodoEntrada->getAno()) == 0 ){
+            if( $anoPeriodoAtual->getSemestre() == $anoPeriodoEntrada->getSemestre() ){
+                $qntSemestres = 1;
+                
+            }else{
+                $qntSemestres = 2;
+                
+            }
+            
+        }else{
+            if( $anoPeriodoAtual->getAno() - $anoPeriodoEntrada->getAno() > 1 ){
+                $qntSemestres = ($anoPeriodoAtual->getAno() - $anoPeriodoEntrada->getAno() - 1) * 2;
+            }
+            
+            if( $anoPeriodoEntrada->getSemestre() == 1 ){
+                $qntSemestres += 2;
+                
+            }else{
+                $qntSemestres += 1;
+                
+            }
+            
+            $qntSemestres += $anoPeriodoAtual->getSemestre();
+        }
+        
+        return $qntSemestres;        
+        
+    }
+    
+    public static function calculaQntDisciplinas( $historicoEscolarAluno ){
+        //$historicoAluno = $aluno->historicoEscolarAluno;
+        //$tempRegistro = [];
+        
+        $qntDisciplinas = 0;
+        foreach( $historicoEscolarAluno as $registro ){
+            if( $registro['situacao'] == 'APROVADO' ){
+                $qntDisciplinas += 1;
+                
+            }
+        }
+        
+        return $qntDisciplinas;
+    }
+    
     public function copiarPerfilAluno( PerfilAluno $perfilAluno ){
         /*
         $qntSemestres = $aluno->getPerfilAluno()->getQntSemestre();
