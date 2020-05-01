@@ -20,8 +20,7 @@ class PerfilAluno {
         $disciplinasReprovadas = 0;
     }
     
-    public static function calculaQntSemestres( AnoSemestre $anoPeriodoAtual, AnoSemestre $anoPeriodoEntrada ){
-                
+    public static function calculaQntSemestres( AnoSemestre $anoPeriodoAtual, AnoSemestre $anoPeriodoEntrada ){                
         $qntSemestres = 0;
         if( ($anoPeriodoAtual->getAno() - $anoPeriodoEntrada->getAno()) == 0 ){
             if( $anoPeriodoAtual->getSemestre() == $anoPeriodoEntrada->getSemestre() ){
@@ -35,6 +34,7 @@ class PerfilAluno {
         }else{
             if( $anoPeriodoAtual->getAno() - $anoPeriodoEntrada->getAno() > 1 ){
                 $qntSemestres = ($anoPeriodoAtual->getAno() - $anoPeriodoEntrada->getAno() - 1) * 2;
+                
             }
             
             if( $anoPeriodoEntrada->getSemestre() == 1 ){
@@ -49,13 +49,9 @@ class PerfilAluno {
         }
         
         return $qntSemestres;        
-        
     }
     
     public static function calculaQntDisciplinas( $historicoEscolarAluno ){
-        //$historicoAluno = $aluno->historicoEscolarAluno;
-        //$tempRegistro = [];
-        
         $qntDisciplinas = 0;
         foreach( $historicoEscolarAluno as $registro ){
             if( $registro['situacao'] == 'APROVADO' ){
@@ -67,18 +63,22 @@ class PerfilAluno {
         return $qntDisciplinas;
     }
     
-    public function copiarPerfilAluno( PerfilAluno $perfilAluno ){
-        /*
-        $qntSemestres = $aluno->getPerfilAluno()->getQntSemestre();
-        $qntDisciplinas = $aluno->getPerfilAluno()->getQntDisciplinas();
-        $cargaHoraria = $aluno->getPerfilAluno()->getCargaHoraria();
-        $media = $aluno->getPerfilAluno()->getMedia();
-        $notaMaxima = $aluno->getPerfilAluno()->getNotaMaxima();
-        $notaMinima = $aluno->getPerfilAluno()->getNotaMinima();
-        $disciplinasAprovadas = $aluno->getPerfilAluno()->getDisciplinasAprovadas();
-        $disciplinasReprovadas = $aluno->getPerfilAluno()->getDisciplinasReprovadas();
-        */
-        //var_dump( $ );
+    public static function calculaCargaHoraria( $historicoEscolarAluno ){
+        $qntDisciplinas = 0;
+        
+        foreach( $historicoEscolarAluno as $registro ){
+            $codigoComponente = $registro['cod_componente'];
+            $componenteCurricular = new ComponenteCurricular( $codigoComponente );
+            if( $registro['situacao'] == 'APROVADO' ){
+                $qntDisciplinas += $componenteCurricular->carga_horaria;
+                
+            }
+        }
+        
+        return $qntDisciplinas;
+    }
+    
+    public function copiarPerfilAluno( PerfilAluno $perfilAluno ){        
         $this->qntSemestres = $perfilAluno->getQntSemestres();
         $this->qntDisciplinas = $perfilAluno->getQntDisciplinas();
         $this->cargaHoraria = $perfilAluno->getCargaHoraria();
@@ -167,14 +167,13 @@ class PerfilAluno {
         
     }
     
-    public function toArray(){
-        
+    public function toArray(){        
         $data = array();
         
         foreach( $this as $key => $value ){
             $data[$key] = $value;
-        }
-        
+            
+        }        
         
         return $data;
     }

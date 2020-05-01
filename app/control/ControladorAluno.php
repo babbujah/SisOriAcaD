@@ -22,9 +22,9 @@ class ControladorAluno extends ControladorUsuario{
         $perfilAluno = new PerfilAluno();
         $perfilAluno->setQntSemestres( self::calculaQntSemestres( $aluno ) );
         $perfilAluno->setQntDisciplinas( self::calculaQntDisciplinas( $aluno ) );
+        $perfilAluno->setCargaHoraria( self::calculaCargaHoraria( $aluno ) );
         /*
         
-        serlf::calculaCargaHoraria( $aluno );
         self::calculaMedia( $aluno );
         self::calculaNotaMaxima( $aluno );
         self::calculaNotaMinima( $aluno );
@@ -55,69 +55,69 @@ class ControladorAluno extends ControladorUsuario{
         $anoPeriodoEntrada->setAno( $aluno->getAnoIngresso()->getAno() );
         $anoPeriodoEntrada->setSemestre( $aluno->getAnoIngresso()->getSemestre() );
         
-        $qntSemestres = PerfilAluno::calculaQntSemestres( $anoPeriodoAtual, $anoPeriodoEntrada );
+        $qntSemestres = PerfilAluno::calculaQntSemestres( $anoPeriodoAtual, $anoPeriodoEntrada );        
         
-        
-        //get_class( $anoPeriodoAtual->getAno() );
-        //echo gettype( $anoPeriodoEntrada->getAno() );
-        //echo $anoPeriodoEntrada->getAno();
-        //var_dump( $anoPeriodoEntrada->getAno() + ' ' + $anoPeriodoAtual->getAno() );
-        
-        
-        
-        /*
-        if( ($anoPeriodoAtual->getAno() - $anoPeriodoEntrada->getAno()) == 0 ){
-            if( $anoPeriodoAtual->getSemestre() == $anoPeriodoEntrada->getSemestre() ){
-                $qntSemestres = 1;
-                
-            }else{
-                $qntSemestres = 2;
-                
-            }
-            
-        }else{
-            if( $anoPeriodoAtual->getAno() - $anoPeriodoEntrada->getAno() > 1 ){
-                $qntSemestres = ($anoPeriodoAtual->getAno() - $anoPeriodoEntrada->getAno() - 1) * 2;
-            }
-            
-            if( $anoPeriodoEntrada->getSemestre() == 1 ){
-                $qntSemestres += 2;
-                
-            }else{
-                $qntSemestres += 1;
-                
-            }
-            
-            $qntSemestres += $anoPeriodoAtual->getSemestre();
-        }
-        //var_dump($qntSemestres);
-        */
-        return $qntSemestres;
-        
-        
+        return $qntSemestres;        
     }
     
     private function calculaQntDisciplinas( $aluno ){
         $tempHistoricoAluno = $aluno->historicoEscolarAluno;
                 
         $qntDisciplinas = PerfilAluno::calculaQntDisciplinas( $tempHistoricoAluno );
-        /*
-        foreach( $tempHistoricoAluno as $registro ){
-            if( $registro['situacao'] == 'APROVADO' ){
-                $qntDisciplinas += 1;
-                
-            }
-        }
-        */
+        
         return $qntDisciplinas;
     }
-    /*
-    serlf::calculaCargaHoraria( $aluno );
-    self::calculaMedia( $aluno );
-    self::calculaNotaMaxima( $aluno );
-    self::calculaNotaMinima( $aluno );
-    self::calculaDisciplinasAprovadas( $aluno );
-    self::calculaDisciplinasReprovadas( $aluno );
-    */
-   
+    
+    private function calculaCargaHoraria( $aluno ){
+        $tempHistoricoAluno = $aluno->historicoEscolarAluno;
+        // Chamada para função estática calculaCargaHoraria de PerfilAluno
+        $qntCargaHoraria = PerfilAluno::calculaCargaHoraria( $tempHistoricoAluno );
+        
+        return $qntCargaHoraria;
+    }
+    
+    private function calculaMedia(  ){
+        $media = 0;
+                
+        // Chamada para função estática calculaMedia de PerfilAluno
+        //PerfilAluno::calculaMedia();
+        
+        return $media;
+    }
+    
+    private function calculaNotaMaxima(  ){
+        $notaMaxima = 0;
+                
+        // Chamada para função estática calculaNotaMaxima de PerfilAluno
+        //PerfilAluno::calculaNotaMaxima();
+        
+        return $notaMaxima;
+    }
+    
+    private function calculaNotaMinima(  ){
+        $notaMinima = 0;
+                
+        // Chamada para função estática calculaNotaMinima de PerfilAluno
+        //PerfilAluno::calculaNotaMinima();
+        
+        return $notaMinima;
+    }
+    
+    private function calculaDisciplinasAprovadas(  ){
+        $qntDisciplinasAprovadas = 0;
+                
+        // Chamada para função estática calculaDisciplinasAprovadas de PerfilAluno
+        //PerfilAluno::calculaDisciplinasAprovadas();
+        
+        return $qntDisciplinasAprovadas;
+    }
+    
+    private function calculaDisciplinasReprovadas(  ){
+        $qntDisciplinasReprovadas = 0;
+                
+        // Chamada para função estática calculaDisciplinasReprovadas de PerfilAluno
+        //PerfilAluno::calculaDisciplinasReprovadas();
+        
+        return $qntDisciplinasReprovadas;
+    }
 }

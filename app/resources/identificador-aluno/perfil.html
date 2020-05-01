@@ -39,7 +39,7 @@
               <div class="container">
                 <div class="progress progress-bar-vertical">
                   <div class="progress-bar" role="progressbar" aria-valuenow="{{qntSemestres}}" aria-valuemin="0" aria-valuemax="100" style="height: {{qntSemestres}}%;">
-                    {{qntSemestres}}%<!--<span class="sr-only">60% Complete</span>-->
+                    <b>{{qntSemestres}}%</b><span class="sr-only">60% Complete</span>
                   </div>
                 </div>
               </div>
@@ -49,8 +49,8 @@
 
               <div class="container">
                 <div class="progress progress-bar-vertical">
-                  <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="height: 60%;">
-                    <span class="sr-only">60% Complete</span>
+                  <div class="progress-bar" role="progressbar" aria-valuenow="{{qntDisciplinas}}" aria-valuemin="0" aria-valuemax="100" style="height: {{qntDisciplinas}}%;">
+                    <b>{{qntDisciplinas}}%</b><span class="sr-only">{{qntDisciplinas}}% Complete</span>
                   </div>
                 </div>
               </div>
@@ -60,8 +60,8 @@
 
               <div class="container">
                 <div class="progress progress-bar-vertical">
-                  <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="height: 60%;">
-                    <span class="sr-only">60% Complete</span>
+                  <div class="progress-bar" role="progressbar" aria-valuenow="{{cargaHoraria}}" aria-valuemin="0" aria-valuemax="100" style="height: {{cargaHoraria}}%;">
+                    <b>{{cargaHoraria}}</b><span class="sr-only">{{cargaHoraria}}% Complete</span>
                   </div>
                 </div>
               </div>

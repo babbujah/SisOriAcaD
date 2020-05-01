@@ -25,6 +25,20 @@ class HistoricoEscolar extends TRecord
         
     }
     
+    public function get_componenteCurricular(){
+    
+    echo 'entrei aqui';
+        if( empty( $this->componenteCurricular ) ){
+        echo 'entrei na condição';
+            $this->componenteCurricular = new ComponenteCurricular( $this->cod_componente );
+            var_dump( $this->componenteCurricular );
+            
+        }
+        
+        return $this->componenteCurricular;
+    }
+    
+    
     public function adicionarResgistroHistorico( $registroHistorico ){
         $this->listaRegistrosHistorico[] = $registroHistorico;
         
