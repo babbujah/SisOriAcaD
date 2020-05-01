@@ -114,7 +114,6 @@ class PerfilAluno {
     public static function buscarNotaMinima( $historicoEscolarAluno ){
         $notaMinima = 10;
         $notaAtual = 10;
-        echo 'Entrei aqui';
         foreach( $historicoEscolarAluno as $registro ){
             $notaAtual = $registro['nota'];
             if( $notaAtual < $notaMinima && $notaAtual != NULL ){
@@ -124,6 +123,45 @@ class PerfilAluno {
         }
         
         return $notaMinima;
+    }
+    
+    public static function calcularQntDisciplinasAprovado( $historicoEscolarAluno ){
+        $notaMinima = 10;
+        $notaAtual = 10;
+        //echo 'Entrei aqui';
+        foreach( $historicoEscolarAluno as $registro ){
+            $notaAtual = $registro['nota'];
+            if( $notaAtual < $notaMinima && $notaAtual != NULL ){
+                $notaMinima = $notaAtual;
+                  
+            }
+        }
+        
+        return $notaMinima;
+    }
+    
+    public static function calculaDisciplinasAprovadas( $historicoEscolarAluno ){
+        $qntDisciplinasAprovadas = 0;
+        foreach( $historicoEscolarAluno as $registro ){
+            if( $registro['situacao'] == 'APROVADO' ){
+                $qntDisciplinasAprovadas += 1;
+                  
+            }
+        }
+        
+        return $qntDisciplinasAprovadas;
+    }
+    
+    public static function calculaDisciplinasReprovadas( $historicoEscolarAluno ){
+        $qntDisciplinasReprovadas = 0;
+        foreach( $historicoEscolarAluno as $registro ){
+            if( $registro['situacao'] == 'REPROVADO' ){
+                $qntDisciplinasReprovadas += 1;
+                  
+            }
+        }
+        
+        return $qntDisciplinasReprovadas;
     }
     
     public function copiarPerfilAluno( PerfilAluno $perfilAluno ){        

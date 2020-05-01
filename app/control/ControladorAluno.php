@@ -26,11 +26,9 @@ class ControladorAluno extends ControladorUsuario{
         $perfilAluno->setMedia( self::calculaMedia( $aluno ) );
         $perfilAluno->setNotaMaxima( self::buscarNotaMaxima( $aluno ) );
         $perfilAluno->setNotaMinima( self::buscarNotaMinima( $aluno ) );
-        /*
-        self::calculaDisciplinasAprovadas( $aluno );
-        self::calculaDisciplinasReprovadas( $aluno );
-        */
-        
+        $perfilAluno->setDisciplinasAprovadas( self::calculaDisciplinasAprovadas( $aluno ) );
+        $perfilAluno->setDisciplinasReprovadas( self::calculaDisciplinasReprovadas( $aluno ) );
+                
         $aluno->setPerfilAluno( $perfilAluno );
         
         //return $perfilAluno;
@@ -98,24 +96,24 @@ class ControladorAluno extends ControladorUsuario{
                 
         // Chamada para função estática calculaNotaMinima de PerfilAluno
         $notaMinima = PerfilAluno::buscarNotaMinima( $tempHistoricoAluno );
-        var_dump( $notaMinima );
+        
         return $notaMinima;
     }
     
-    private function calculaDisciplinasAprovadas(  ){
-        $qntDisciplinasAprovadas = 0;
+    private function calculaDisciplinasAprovadas( $aluno ){
+        $tempHistoricoAluno = $aluno->historicoEscolarAluno;
                 
         // Chamada para função estática calculaDisciplinasAprovadas de PerfilAluno
-        //PerfilAluno::calculaDisciplinasAprovadas();
+        $qntDisciplinasAprovadas = PerfilAluno::calculaDisciplinasAprovadas( $tempHistoricoAluno );
         
         return $qntDisciplinasAprovadas;
     }
     
-    private function calculaDisciplinasReprovadas(  ){
-        $qntDisciplinasReprovadas = 0;
+    private function calculaDisciplinasReprovadas( $aluno ){
+        $tempHistoricoAluno = $aluno->historicoEscolarAluno;
                 
         // Chamada para função estática calculaDisciplinasReprovadas de PerfilAluno
-        //PerfilAluno::calculaDisciplinasReprovadas();
+        $qntDisciplinasReprovadas = PerfilAluno::calculaDisciplinasReprovadas( $tempHistoricoAluno );
         
         return $qntDisciplinasReprovadas;
     }

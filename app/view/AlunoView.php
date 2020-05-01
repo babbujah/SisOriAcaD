@@ -97,7 +97,7 @@ class AlunoView extends TPage{
         //var_dump( $perfilAluno->getQntSemestres() );
         //echo get_class($perfilAluno->toArray());
         //echo gettype( $perfilAluno->toArray() ) + '<br>';
-        var_dump($perfilAluno->toArray());
+        //var_dump($perfilAluno->toArray());
         
         $html = new HtmlRendererConstructor( 'app/resources/identificador-aluno/perfil.html' );
         $html->enableSection( 'viewPerfil', $perfilAluno->toArray() );
