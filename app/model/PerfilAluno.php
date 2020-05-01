@@ -78,6 +78,54 @@ class PerfilAluno {
         return $qntDisciplinas;
     }
     
+    public static function calculaMedia( $historicoEscolarAluno ){
+        $media = 0;
+        $qntDisciplinasAprovadas = 0;
+        foreach( $historicoEscolarAluno as $registro ){
+            if( $registro['situacao'] == 'APROVADO' ){
+                $media += $registro['nota'];
+                $qntDisciplinasAprovadas += 1;
+                
+            }
+        }
+        
+        if( $qntDisciplinasAprovadas != 0 ){
+            $media /= $qntDisciplinasAprovadas;
+            
+        }
+        
+        return $media;
+    }
+    
+    public static function buscarNotaMaxima( $historicoEscolarAluno ){
+        $notaMaxima = 0;
+        $notaAtual = 0;
+        foreach( $historicoEscolarAluno as $registro ){
+            $notaAtual = $registro['nota'];
+            if( $notaAtual > $notaMaxima && $notaAtual != NULL ){
+                $notaMaxima = $notaAtual;
+                  
+            }
+        }
+        
+        return $notaMaxima;
+    }
+    
+    public static function buscarNotaMinima( $historicoEscolarAluno ){
+        $notaMinima = 10;
+        $notaAtual = 10;
+        echo 'Entrei aqui';
+        foreach( $historicoEscolarAluno as $registro ){
+            $notaAtual = $registro['nota'];
+            if( $notaAtual < $notaMinima && $notaAtual != NULL ){
+                $notaMinima = $notaAtual;
+                  
+            }
+        }
+        
+        return $notaMinima;
+    }
+    
     public function copiarPerfilAluno( PerfilAluno $perfilAluno ){        
         $this->qntSemestres = $perfilAluno->getQntSemestres();
         $this->qntDisciplinas = $perfilAluno->getQntDisciplinas();

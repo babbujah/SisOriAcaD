@@ -23,11 +23,10 @@ class ControladorAluno extends ControladorUsuario{
         $perfilAluno->setQntSemestres( self::calculaQntSemestres( $aluno ) );
         $perfilAluno->setQntDisciplinas( self::calculaQntDisciplinas( $aluno ) );
         $perfilAluno->setCargaHoraria( self::calculaCargaHoraria( $aluno ) );
+        $perfilAluno->setMedia( self::calculaMedia( $aluno ) );
+        $perfilAluno->setNotaMaxima( self::buscarNotaMaxima( $aluno ) );
+        $perfilAluno->setNotaMinima( self::buscarNotaMinima( $aluno ) );
         /*
-        
-        self::calculaMedia( $aluno );
-        self::calculaNotaMaxima( $aluno );
-        self::calculaNotaMinima( $aluno );
         self::calculaDisciplinasAprovadas( $aluno );
         self::calculaDisciplinasReprovadas( $aluno );
         */
@@ -76,30 +75,30 @@ class ControladorAluno extends ControladorUsuario{
         return $qntCargaHoraria;
     }
     
-    private function calculaMedia(  ){
-        $media = 0;
+    private function calculaMedia( $aluno ){
+        $tempHistoricoAluno = $aluno->historicoEscolarAluno;
                 
         // Chamada para função estática calculaMedia de PerfilAluno
-        //PerfilAluno::calculaMedia();
+        $media = PerfilAluno::calculaMedia( $tempHistoricoAluno );
         
         return $media;
     }
     
-    private function calculaNotaMaxima(  ){
-        $notaMaxima = 0;
+    private function buscarNotaMaxima( $aluno ){
+        $tempHistoricoAluno = $aluno->historicoEscolarAluno;
                 
         // Chamada para função estática calculaNotaMaxima de PerfilAluno
-        //PerfilAluno::calculaNotaMaxima();
+        $notaMaxima = PerfilAluno::buscarNotaMaxima( $tempHistoricoAluno );
         
         return $notaMaxima;
     }
     
-    private function calculaNotaMinima(  ){
-        $notaMinima = 0;
+    private function buscarNotaMinima( $aluno ){
+        $tempHistoricoAluno = $aluno->historicoEscolarAluno;
                 
         // Chamada para função estática calculaNotaMinima de PerfilAluno
-        //PerfilAluno::calculaNotaMinima();
-        
+        $notaMinima = PerfilAluno::buscarNotaMinima( $tempHistoricoAluno );
+        var_dump( $notaMinima );
         return $notaMinima;
     }
     
